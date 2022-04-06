@@ -23,4 +23,4 @@ export const DB_PATH_SEEDS = `${dir}/modules/database/seeds/*.{ts,js}`;
 
 export const DB_PATH_SAVE_SEEDS = `${dir}/modules/database/seeds`;
 
-export const DB_LOGGING: LoggerOptions = ['error', 'warn'];
+export const DB_LOGGING: LoggerOptions = ['error', 'warn', 'query'];

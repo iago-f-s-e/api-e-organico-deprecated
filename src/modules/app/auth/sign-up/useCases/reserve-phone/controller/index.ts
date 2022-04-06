@@ -1,4 +1,4 @@
-import { Body, Controller, HttpCode, HttpStatus, Param, Post } from '@nestjs/common';
+import { Body, ConflictException, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
 import { CacheService } from '@src/modules/common/services';
 import { ReservePhoneDTO } from '../dtos/reserve-phone.dto';
 import { ReservePhoneService } from '../service';
@@ -12,15 +12,19 @@ export class ReservePhoneController {
 
   @Post()
   @HttpCode(HttpStatus.NO_CONTENT)
-  public async exec(@Body() body: ReservePhoneDTO, @Param('mac') mac: string): Promise<void> {
-    const key = `${mac}:phone`;
+  public async exec(@Body() body: ReservePhoneDTO): Promise<void> {
+    const key = `@phone:${body.phone}`;
 
     const cache = await this.cacheService.get<ReservePhoneDTO>(key);
 
-    if (cache) return;
+    if (!cache) {
+      const reserveOrError = await this.service.exec(body, key);
 
-    const reserveOrError = await this.service.exec(body.phone, key);
+      if (reserveOrError.isLeft()) throw reserveOrError.value;
 
-    if (reserveOrError.isLeft()) throw reserveOrError.value;
+      return;
+    }
+
+    if (cache.device !== body.device) throw new ConflictException('The user phone already exists.');
   }
 }
