@@ -10,4 +10,12 @@ export class FindUserRepository {
   public findByPhone(phone: string): Promise<User | null> {
     return this.user.findOneBy({ phone });
   }
+
+  public findByDocument(document: string): Promise<User | null> {
+    return this.user.findOneBy({ document });
+  }
+
+  public findByEmail(email: string): Promise<User | null> {
+    return this.user.findOneBy({ email });
+  }
 }
