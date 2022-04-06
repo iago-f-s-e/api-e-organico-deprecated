@@ -29,5 +29,13 @@ try
     echo "Migration was created successfully!"
 )
 catch || {
-    echo -e '\033[05;31mNo changes in database schema were found - cannot generate a migration. To create a new empty migration use "typeorm migration:create" command\033[00;37m'
+    case $exception_code in
+        $ERR_BAD)
+              echo -e '\033[05;31mNo changes in database schema were found\033[00;37m'
+        ;;
+        *)
+            echo "Unknown error: $exit_code"
+            throw $exit_code
+        ;;
+    esac
 }
