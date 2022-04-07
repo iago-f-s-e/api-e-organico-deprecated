@@ -3,21 +3,21 @@ import { CreateUserService } from '@src/modules/app/user/useCases/create-user/se
 import { PassService } from '@src/modules/common/services';
 import { CreateResponse } from '@src/modules/common/types';
 import { User } from '@src/modules/database/entities';
-import { RegisterConsumerDTO } from '../dtos';
+import { RegisterProducerDTO } from '../dtos';
 
 // TODO: enviar email/sms de confirmação
 
 @Injectable()
-export class RegisterConsumerService {
+export class RegisterProducerService {
   constructor(
     private readonly passService: PassService,
     private readonly createUser: CreateUserService
   ) {}
 
-  public async exec(data: RegisterConsumerDTO): CreateResponse<User> {
+  public async exec(data: RegisterProducerDTO): CreateResponse<User> {
     const password = await this.passService.hash(data.password);
 
-    const toCreate: RegisterConsumerDTO = { ...data, password };
+    const toCreate: RegisterProducerDTO = { ...data, password };
 
     return this.createUser.exec(toCreate);
   }

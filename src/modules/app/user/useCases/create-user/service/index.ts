@@ -1,9 +1,9 @@
 import { ConflictException, Injectable } from '@nestjs/common';
-import { RegisterConsumerDTO } from '@src/modules/app/auth/sign-up/useCases/register-consumer/dtos';
 import { left, right } from '@src/modules/common/either';
 import { CreateResponse } from '@src/modules/common/types';
 import { User } from '@src/modules/database/entities';
 import { FindUserRepository } from '../../find-user/repository';
+import { CreateUserDTO } from '../dtos';
 import { CreateUserRepository } from '../repository';
 
 // TODO: adicionar user type
@@ -15,7 +15,7 @@ export class CreateUserService {
     private readonly findUser: FindUserRepository
   ) {}
 
-  public async exec(data: RegisterConsumerDTO): CreateResponse<User> {
+  public async exec(data: CreateUserDTO): CreateResponse<User> {
     const thereIsSome = (
       await Promise.all([
         this.findUser.findByDocument(data.document),

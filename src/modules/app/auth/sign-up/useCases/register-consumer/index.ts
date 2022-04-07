@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { RouteTree } from '@nestjs/core';
-import { CreateUserModule } from '@src/modules/app/domain/user/useCases/create-user';
+import { CreateUserModule } from '@src/modules/app/user/useCases/create-user';
 import { CommonModule } from '@src/modules/common';
 import { RegisterConsumerController } from './controller';
 import { RegisterConsumerService } from './service';

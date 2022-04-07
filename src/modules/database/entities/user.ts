@@ -1,6 +1,7 @@
 import { Column, Entity, OneToOne, PrimaryColumn } from 'typeorm';
 import { Address } from './address';
 import { BaseEntity } from './base-entity';
+import { Producer } from './producer';
 
 @Entity('user')
 export class User extends BaseEntity {
@@ -24,4 +25,7 @@ export class User extends BaseEntity {
 
   @OneToOne(() => Address, address => address.user, { cascade: true })
   public readonly address!: Address;
+
+  @OneToOne(() => Producer, producer => producer.user, { cascade: true })
+  public readonly producer!: Producer;
 }
