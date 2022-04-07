@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryColumn } from 'typeorm';
+import { Column, Entity, OneToOne, PrimaryColumn } from 'typeorm';
+import { Address } from './address';
 import { BaseEntity } from './base-entity';
 
 @Entity('user')
@@ -20,4 +21,7 @@ export class User extends BaseEntity {
 
   @Column({ type: 'varchar' })
   public readonly password!: string;
+
+  @OneToOne(() => Address, address => address.user, { cascade: true })
+  public readonly address!: Address;
 }

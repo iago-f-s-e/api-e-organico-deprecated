@@ -24,6 +24,7 @@
     "typeorm:run": "yarn typeorm:migration:run && yarn typeorm:seeds:run",
     "typeorm:migration:gen": "yarn typeorm migration:generate -p -d src/modules/database/cli/default-connection.ts",
     "typeorm:migration:run": "yarn typeorm migration:run -d src/modules/database/cli/default-connection.ts",
+    "typeorm:migration:rev": "yarn typeorm migration:revert -d src/modules/database/cli/default-connection.ts",
     "typeorm:seeds:create": "yarn typeorm migration:create -f seeds-ormconfig.json -c seeds -n",
     "typeorm:seeds:run": "yarn typeorm migration:run -f seeds-ormconfig.json -c seeds",
     "make:migration": "chmod +x ./infra/make-migration.sh && bash ./infra/make-migration.sh"
