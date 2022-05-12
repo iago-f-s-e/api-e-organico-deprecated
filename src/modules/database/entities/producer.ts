@@ -1,9 +1,6 @@
+import { CertificationType, ProducerStatus } from '@src/modules/common/types';
 import { Column, Entity, JoinColumn, OneToOne, PrimaryColumn } from 'typeorm';
 import { User } from './user';
-
-export type CertificationType = 'IN CONVERSION' | 'AUDIT' | 'OCS' | 'SPG';
-
-export type ProducerStatus = 'PENDING' | 'ACTIVE' | 'BLOCKED' | 'REJECTED';
 
 @Entity('producer')
 export class Producer {
@@ -13,7 +10,7 @@ export class Producer {
   @Column({ type: 'boolean', name: 'make_delivery', default: false })
   public readonly makeDelivery!: boolean;
 
-  @Column({ type: 'varchar', name: 'status', default: 'PENDING' })
+  @Column({ type: 'varchar', default: 'PENDING' })
   public readonly status!: ProducerStatus;
 
   @Column({ type: 'varchar', name: 'certification_type', default: 'IN CONVERSION' })

@@ -14,7 +14,7 @@ export class ReserveEmailService {
   ) {}
 
   public async exec(data: ReserveEmailDTO, key: string): Response {
-    const phoneExists = await this.findUser.findByEmail(data.email);
+    const phoneExists = await this.findUser.byEmail(data.email);
 
     if (phoneExists) return left(new ConflictException('The user email already exists.'));
 

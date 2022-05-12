@@ -23,10 +23,10 @@ export class CacheService {
     return this.cache.set(key, this.toSet(payload), REDIS_PX_MODE, REDIS_EXPIRATION_TIME_PASSWORD);
   }
 
-  public async get<T = CacheDTO>(key: string): Promise<T | undefined> {
+  public async get<T = CacheDTO>(key: string): Promise<T | null> {
     const cache = await this.cache.get(key);
 
-    if (!cache) return;
+    if (!cache) return null;
 
     return this.toGet<T>(cache);
   }

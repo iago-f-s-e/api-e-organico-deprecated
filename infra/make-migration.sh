@@ -22,9 +22,9 @@ try
 (
     read -p 'Migration name: ' NAME
 
-    yarn typeorm:migration:gen $NAME > /dev/null 2>&1 || throw $ERR_BAD
+    yarn migration:gen $NAME > /dev/null 2>&1 || throw $ERR_BAD
     mv *.ts src/modules/database/migrations 
-    yarn typeorm:migration:run
+    yarn migration:run
 
     echo "Migration was created successfully!"
 )

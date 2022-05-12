@@ -1,4 +1,4 @@
-import { RegisterAddressDTO } from '../../register-address/dtos';
+// import { RegisterAddressDTO } from '../../register-address/dtos';
 
 export type RegisterConsumerDTO = {
   phone: string;
@@ -6,5 +6,4 @@ export type RegisterConsumerDTO = {
   email: string;
   document: string;
   password: string;
-  address: RegisterAddressDTO;
 };

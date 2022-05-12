@@ -18,9 +18,9 @@ export class CreateUserService {
   public async exec(data: CreateUserDTO): CreateResponse<User> {
     const thereIsSome = (
       await Promise.all([
-        this.findUser.findByDocument(data.document),
-        this.findUser.findByEmail(data.email),
-        this.findUser.findByPhone(data.phone)
+        this.findUser.byDocument(data.document),
+        this.findUser.byEmail(data.email),
+        this.findUser.byPhone(data.phone)
       ])
     ).filter(user => !!user);
 

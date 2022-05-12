@@ -14,7 +14,7 @@ export class ReservePhoneService {
   ) {}
 
   public async exec(data: ReservePhoneDTO, key: string): Response {
-    const phoneExists = await this.findUser.findByPhone(data.phone);
+    const phoneExists = await this.findUser.byPhone(data.phone);
 
     if (phoneExists) return left(new ConflictException('The user phone already exists.'));
 
