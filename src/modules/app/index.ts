@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { RouterModule } from '@nestjs/core';
-import { AuthModule, authPrefix } from './auth';
+import { AuthModule, authPrefix } from '../auth';
 import { DomainModule } from './domain';
 import { UserModule } from './user';
 

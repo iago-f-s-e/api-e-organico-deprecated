@@ -1,4 +1,4 @@
-class Left<L, R> {
+export class Left<L, R> {
   public readonly value: L;
 
   constructor(value: L) {
@@ -14,7 +14,7 @@ class Left<L, R> {
   }
 }
 
-class Right<L, R> {
+export class Right<L, R> {
   public readonly value: R;
 
   constructor(value: R) {
