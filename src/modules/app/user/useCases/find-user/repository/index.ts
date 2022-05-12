@@ -7,15 +7,30 @@ import { Repository } from 'typeorm';
 export class FindUserRepository {
   constructor(@InjectRepository(User) private readonly user: Repository<User>) {}
 
-  public byPhone(phone: string): Promise<User | null> {
-    return this.user.findOneBy({ phone });
+  public existingByDocument(document: string): Promise<User | null> {
+    return this.user.findOne({
+      where: { document },
+      select: {
+        id: true
+      }
+    });
   }
 
-  public byDocument(document: string): Promise<User | null> {
-    return this.user.findOneBy({ document });
+  public existingByEmail(email: string): Promise<User | null> {
+    return this.user.findOne({
+      where: { email },
+      select: {
+        id: true
+      }
+    });
   }
 
-  public byEmail(email: string): Promise<User | null> {
-    return this.user.findOneBy({ email });
+  public existingByPhone(email: string): Promise<User | null> {
+    return this.user.findOne({
+      where: { email },
+      select: {
+        id: true
+      }
+    });
   }
 }

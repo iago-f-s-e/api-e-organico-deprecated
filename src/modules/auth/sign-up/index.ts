@@ -1,30 +1,16 @@
 import { Module } from '@nestjs/common';
 import { RouteTree } from '@nestjs/core';
-import { registerConsumerChildren, RegisterConsumerModule } from './useCases/register-consumer';
-import { registerProducerChildren, RegisterProducerModule } from './useCases/register-producer';
 import { reserveDocumentChildren, ReserveDocumentModule } from './useCases/reserve-document';
 import { reserveEmailChildren, ReserveEmailModule } from './useCases/reserve-email';
 import { reservePhoneChildren, ReservePhoneModule } from './useCases/reserve-phone';
 
 @Module({
-  imports: [
-    ReservePhoneModule,
-    ReserveDocumentModule,
-    ReserveEmailModule,
-    RegisterConsumerModule,
-    RegisterProducerModule
-  ]
+  imports: [ReservePhoneModule, ReserveDocumentModule, ReserveEmailModule]
 })
-export class SignUpModule {}
+export class SignUpModuleV2 {}
 
-export const signUpChildren: RouteTree = {
+export const signUpChildrenV2: RouteTree = {
   path: '/sign-up',
-  module: SignUpModule,
-  children: [
-    reservePhoneChildren,
-    reserveDocumentChildren,
-    reserveEmailChildren,
-    registerConsumerChildren,
-    registerProducerChildren
-  ]
+  module: SignUpModuleV2,
+  children: [reservePhoneChildren, reserveDocumentChildren, reserveEmailChildren]
 };

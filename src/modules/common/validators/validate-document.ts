@@ -19,7 +19,7 @@ export class ValidateDocument {
   }
 
   private static isValid(data: string): boolean {
-    return isValidDocument(data);
+    return !!data && isValidDocument(data);
   }
 
   public get value(): Readonly<string> {

@@ -28,7 +28,7 @@ export class ValidateEmail {
   }
 
   private static isValid(data: string, maxSize: number): boolean {
-    return isValidEmail(data, maxSize);
+    return !!data && isValidEmail(data, maxSize);
   }
 
   public get value(): Readonly<string> {

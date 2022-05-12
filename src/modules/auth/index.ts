@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { RouteTree } from '@nestjs/core';
-import { signUpChildren, SignUpModule } from './sign-up';
+import { signUpChildren, SignUpModule } from './useCases/sign-up';
 
 @Module({
   imports: [SignUpModule]

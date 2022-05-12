@@ -14,7 +14,7 @@ export class ReserveDocumentService {
   ) {}
 
   public async exec(data: ReserveDocumentDTO, key: string): Response {
-    const phoneExists = await this.findUser.byDocument(data.document);
+    const phoneExists = await this.findUser.existingByDocument(data.document);
 
     if (phoneExists) return left(new ConflictException('The user document already exists.'));
 
