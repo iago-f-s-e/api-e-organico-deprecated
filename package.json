@@ -14,20 +14,21 @@
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main.js",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
+    "make:migration": "chmod +x ./infra/make-migration.sh && bash ./infra/make-migration.sh",
+    "make:seeds": "chmod +x ./infra/make-migration.sh && bash ./infra/make-seeds.sh",
+    "make:env": "chmod +x ./infra/make-env.sh && bash make.sh",
+    "prepare:husky": "husky install",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
-    "typeorm:rm": "(rm -f ormconfig.json) && (rm -f seeds-ormconfig.json)",
-    "typeorm:prepare": "yarn typeorm:rm && ts-node -r tsconfig-paths/register src/modules/database/config/config-file-generate.ts",
     "typeorm:run": "yarn typeorm:migration:run && yarn typeorm:seeds:run",
-    "typeorm:migration:gen": "yarn typeorm migration:generate -p -d src/modules/database/cli/default-connection.ts",
-    "typeorm:migration:run": "yarn typeorm migration:run -d src/modules/database/cli/default-connection.ts",
-    "typeorm:migration:rev": "yarn typeorm migration:revert -d src/modules/database/cli/default-connection.ts",
-    "typeorm:seeds:create": "yarn typeorm migration:create -f seeds-ormconfig.json -c seeds -n",
-    "typeorm:seeds:run": "yarn typeorm migration:run -f seeds-ormconfig.json -c seeds",
-    "make:migration": "chmod +x ./infra/make-migration.sh && bash ./infra/make-migration.sh"
+    "migration:gen": "yarn typeorm migration:generate -p -d src/modules/database/cli/default-connection.ts",
+    "migration:run": "yarn typeorm migration:run -d src/modules/database/cli/default-connection.ts",
+    "migration:rev": "yarn typeorm migration:revert -d src/modules/database/cli/default-connection.ts",
+    "seeds:gen": "yarn typeorm migration:generate -d src/modules/database/cli/seeds-connection.ts",
+    "seeds:run": "yarn typeorm migration:run -d src/modules/database/cli/seeds-connection.ts"
   },
   "dependencies": {
     "@nestjs/common": "^8.4.3",
@@ -44,7 +45,8 @@
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^7.5.5",
-    "typeorm": "^0.3.5"
+    "typeorm": "^0.3.5",
+    "typeorm-encrypted": "^0.6.0"
   },
   "devDependencies": {
     "@nestjs/cli": "^8.2.4",

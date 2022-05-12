@@ -25,6 +25,8 @@ export class RegisterProducerController {
 
     if (registerOrError.isLeft()) throw registerOrError.value;
 
+    this.clearCache(registerOrError.value);
+
     return registerOrError.value;
   }
 }
