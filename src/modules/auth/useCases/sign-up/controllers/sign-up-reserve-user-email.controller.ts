@@ -1,13 +1,14 @@
 import { Body, ConflictException, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
-import { CacheService } from '@src/modules/common/services';
-import { ReserveEmailDTO } from '../dtos/reserve-document.dto';
-import { ReserveEmailService } from '../service';
 
-@Controller()
-export class ReserveEmailController {
+import { CacheService } from '@src/modules/common/services';
+import { ReserveEmailDTO } from '../dtos';
+import { ReserveUserEmail } from '../services';
+
+@Controller('reserve-email')
+export class SignUpReserveUserEmailController {
   constructor(
     private readonly cacheService: CacheService,
-    private readonly service: ReserveEmailService
+    private readonly service: ReserveUserEmail
   ) {}
 
   @Post()
