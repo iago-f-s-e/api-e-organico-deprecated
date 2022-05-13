@@ -1,4 +1,3 @@
-import { ValidateToCreateUnitMeasureProduct } from '@src/modules/app/domain/unit-measure-product/useCases/create-unit-measure-product/entity';
 import { maxSize } from '@src/modules/common/constants';
 import { ValidateResponse } from '@src/modules/common/types/responses';
 import { ValidateString } from '@src/modules/common/validators';
@@ -20,11 +19,8 @@ export class ValidateToCreateProduct {
 
     const name = this.nameOrError.value;
     const type = this.typeOrError.value;
-    const unitMeasureProducts = data.unitMeasures.map(
-      unitMeasure => new ValidateToCreateUnitMeasureProduct(unitMeasure).value
-    );
 
-    this.toCreate = this.afterValidate({ name, type, unitMeasureProducts });
+    this.toCreate = this.afterValidate({ name, type });
   }
 
   private set(data: ProductDTO): asserts this is this & Set {
@@ -59,8 +55,7 @@ export class ValidateToCreateProduct {
   private afterValidate(validated: Validated): CreateProductDTO {
     return {
       name: validated.name.value.toUpperCase(),
-      type: validated.type.value.toUpperCase(),
-      unitMeasureProducts: validated.unitMeasureProducts
+      type: validated.type.value.toUpperCase()
     };
   }
 
