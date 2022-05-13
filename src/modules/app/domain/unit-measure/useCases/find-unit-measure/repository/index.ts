@@ -5,12 +5,21 @@ import { Repository } from 'typeorm';
 
 @Injectable()
 export class FindUnitMeasureRepository {
-  constructor(@InjectRepository(UnitMeasure) private readonly reference: Repository<UnitMeasure>) {}
+  constructor(
+    @InjectRepository(UnitMeasure) private readonly unitMeasure: Repository<UnitMeasure>
+  ) {}
 
   public existing(name: string, abbreviation: string): Promise<UnitMeasure | null> {
-    return this.reference.findOne({
+    return this.unitMeasure.findOne({
       where: [{ name }, { abbreviation }],
       select: { id: true, isActive: true }
     });
+  }
+
+  public exec(): Promise<UnitMeasure[]> {
+    return this.unitMeasure
+      .createQueryBuilder('unitMeasure')
+      .where('unitMeasure.isActive = true')
+      .getMany();
   }
 }

@@ -18,7 +18,7 @@ export class UnitMeasure extends BaseEntity {
   public readonly abbreviation!: string;
 
   @Index('IDX_unit_measure_is_active', { unique: false })
-  @Column({ type: 'boolean', name: 'is_active', default: true })
+  @Column({ type: 'boolean', name: 'is_active', default: true, select: false })
   public readonly isActive!: boolean;
 
   @OneToMany(() => UnitMeasureProduct, unitMeasureProducts => unitMeasureProducts.unitMeasure)
