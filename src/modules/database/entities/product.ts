@@ -1,3 +1,4 @@
+import { maxSize } from '@src/modules/common/constants';
 import { Column, Entity, Index, OneToMany, PrimaryColumn } from 'typeorm';
 import { BaseEntity } from './base-entity';
 import { UnitMeasureProduct } from './unit-measure-product';
@@ -8,10 +9,10 @@ export class Product extends BaseEntity {
   public readonly id!: string;
 
   @Index('IDX_product_name', { unique: true })
-  @Column({ type: 'varchar', unique: true })
+  @Column({ type: 'varchar', length: maxSize.ALIMENT_NAME, unique: true })
   public readonly name!: string;
 
-  @Column({ type: 'varchar' })
+  @Column({ type: 'varchar', length: maxSize.ALIMENT_TYPE })
   public readonly type!: string;
 
   @Index('IDX_product_is_active', { unique: false })

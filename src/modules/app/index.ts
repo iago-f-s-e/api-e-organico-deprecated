@@ -1,10 +1,14 @@
 import { Module } from '@nestjs/common';
-import { RouterModule } from '@nestjs/core';
-import { AuthModule, authPrefix } from '../auth';
-import { DomainModule } from './domain';
-import { UserModule } from './user';
+import { RouteTree } from '@nestjs/core';
+import { domainChildren, DomainModule } from './domain';
 
 @Module({
-  imports: [AuthModule, DomainModule, UserModule, RouterModule.register([authPrefix])]
+  imports: [DomainModule]
 })
 export class AppModule {}
+
+export const appPrefix: RouteTree = {
+  path: '/app',
+  module: AppModule,
+  children: [domainChildren]
+};

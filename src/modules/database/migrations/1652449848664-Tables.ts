@@ -1,7 +1,7 @@
 import { MigrationInterface, QueryRunner } from "typeorm";
 
-export class Tables1652361674366 implements MigrationInterface {
-    name = 'Tables1652361674366'
+export class Tables1652449848664 implements MigrationInterface {
+    name = 'Tables1652449848664'
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(`
@@ -59,26 +59,10 @@ export class Tables1652361674366 implements MigrationInterface {
             )
         `);
         await queryRunner.query(`
-            CREATE TABLE "product" (
-                "product_id" uuid NOT NULL,
-                "name" character varying NOT NULL,
-                "type" character varying NOT NULL,
-                "is_active" boolean NOT NULL DEFAULT true,
-                CONSTRAINT "UQ_22cc43e9a74d7498546e9a63e77" UNIQUE ("name"),
-                CONSTRAINT "PK_1de6a4421ff0c410d75af27aeee" PRIMARY KEY ("product_id")
-            )
-        `);
-        await queryRunner.query(`
-            CREATE UNIQUE INDEX "IDX_product_name" ON "product" ("name")
-        `);
-        await queryRunner.query(`
-            CREATE INDEX "IDX_product_is_active" ON "product" ("is_active")
-        `);
-        await queryRunner.query(`
             CREATE TABLE "unit_measure" (
                 "unit_measure_id" uuid NOT NULL,
-                "name" character varying NOT NULL,
-                "abbreviation" character varying NOT NULL,
+                "name" character varying(50) NOT NULL,
+                "abbreviation" character varying(10) NOT NULL,
                 "is_active" boolean NOT NULL DEFAULT true,
                 CONSTRAINT "UQ_3c3be7a68da958f117b88427187" UNIQUE ("name"),
                 CONSTRAINT "UQ_44ed22e0844941b4697ce9418e5" UNIQUE ("abbreviation"),
@@ -103,6 +87,22 @@ export class Tables1652361674366 implements MigrationInterface {
                 "product_id" uuid NOT NULL,
                 CONSTRAINT "PK_f53ec15066ef32782140d9d9e3c" PRIMARY KEY ("unit_measure_id", "product_id")
             )
+        `);
+        await queryRunner.query(`
+            CREATE TABLE "product" (
+                "product_id" uuid NOT NULL,
+                "name" character varying(100) NOT NULL,
+                "type" character varying(50) NOT NULL,
+                "is_active" boolean NOT NULL DEFAULT true,
+                CONSTRAINT "UQ_22cc43e9a74d7498546e9a63e77" UNIQUE ("name"),
+                CONSTRAINT "PK_1de6a4421ff0c410d75af27aeee" PRIMARY KEY ("product_id")
+            )
+        `);
+        await queryRunner.query(`
+            CREATE UNIQUE INDEX "IDX_product_name" ON "product" ("name")
+        `);
+        await queryRunner.query(`
+            CREATE INDEX "IDX_product_is_active" ON "product" ("is_active")
         `);
         await queryRunner.query(`
             ALTER TABLE "producer"
@@ -136,6 +136,15 @@ export class Tables1652361674366 implements MigrationInterface {
             ALTER TABLE "producer" DROP CONSTRAINT "FK_626f808e3dff8f6073041756736"
         `);
         await queryRunner.query(`
+            DROP INDEX "public"."IDX_product_is_active"
+        `);
+        await queryRunner.query(`
+            DROP INDEX "public"."IDX_product_name"
+        `);
+        await queryRunner.query(`
+            DROP TABLE "product"
+        `);
+        await queryRunner.query(`
             DROP TABLE "unit_measure_product"
         `);
         await queryRunner.query(`
@@ -152,15 +161,6 @@ export class Tables1652361674366 implements MigrationInterface {
         `);
         await queryRunner.query(`
             DROP TABLE "unit_measure"
-        `);
-        await queryRunner.query(`
-            DROP INDEX "public"."IDX_product_is_active"
-        `);
-        await queryRunner.query(`
-            DROP INDEX "public"."IDX_product_name"
-        `);
-        await queryRunner.query(`
-            DROP TABLE "product"
         `);
         await queryRunner.query(`
             DROP TABLE "address"
