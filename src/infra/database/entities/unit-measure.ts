@@ -21,9 +21,6 @@ export class UnitMeasure extends BaseEntity {
   @Column({ type: 'boolean', name: 'is_active', default: true, select: false })
   public readonly isActive!: boolean;
 
-  @OneToMany(() => ProducerProduct, products => products.unitMeasure, {
-    onDelete: 'CASCADE',
-    onUpdate: 'CASCADE'
-  })
+  @OneToMany(() => ProducerProduct, products => products.unitMeasure)
   public readonly producerProducts!: ProducerProduct[];
 }

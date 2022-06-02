@@ -19,9 +19,6 @@ export class Product extends BaseEntity {
   @Column({ type: 'boolean', name: 'is_active', default: true })
   public readonly isActive!: boolean;
 
-  @OneToMany(() => ProducerProduct, products => products.product, {
-    onDelete: 'CASCADE',
-    onUpdate: 'CASCADE'
-  })
+  @OneToMany(() => ProducerProduct, products => products.product)
   public readonly producerProducts!: ProducerProduct[];
 }

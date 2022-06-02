@@ -1,6 +1,7 @@
 import { CertificationType, ProducerStatus } from '@src/modules/common/types';
 import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryColumn } from 'typeorm';
 import { ProducerProduct } from './producer-product';
+import { Property } from './property';
 import { User } from './user';
 
 @Entity('producer')
@@ -21,9 +22,9 @@ export class Producer {
   @JoinColumn({ name: 'producer_id', referencedColumnName: 'id' })
   public readonly user!: User;
 
-  @OneToMany(() => ProducerProduct, producerProducts => producerProducts.producer, {
-    onDelete: 'CASCADE',
-    onUpdate: 'CASCADE'
-  })
+  @OneToMany(() => ProducerProduct, producerProducts => producerProducts.producer)
   public readonly producerProducts!: ProducerProduct[];
+
+  @OneToMany(() => Property, properties => properties.producer)
+  public readonly properties!: Property[];
 }

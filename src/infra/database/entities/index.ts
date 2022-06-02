@@ -6,3 +6,4 @@ export * from './unit-measure';
 export * from './user';
 export * from './market';
 export * from './workday';
+export * from './property';

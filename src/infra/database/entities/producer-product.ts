@@ -31,15 +31,24 @@ export class ProducerProduct extends BaseEntity {
   @Column({ type: 'boolean', name: 'is_active', default: true })
   public readonly isActive!: boolean;
 
-  @ManyToOne(() => UnitMeasure, unit => unit.producerProducts)
+  @ManyToOne(() => UnitMeasure, unit => unit.producerProducts, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE'
+  })
   @JoinColumn({ name: 'unit_measure_id', referencedColumnName: 'id' })
   public readonly unitMeasure!: UnitMeasure;
 
-  @ManyToOne(() => Product, product => product.producerProducts)
+  @ManyToOne(() => Product, product => product.producerProducts, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE'
+  })
   @JoinColumn({ name: 'product_id', referencedColumnName: 'id' })
   public readonly product!: Product;
 
-  @ManyToOne(() => Producer, producer => producer.producerProducts)
+  @ManyToOne(() => Producer, producer => producer.producerProducts, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE'
+  })
   @JoinColumn({ name: 'producer_id', referencedColumnName: 'id' })
   public readonly producer!: Producer;
 }
