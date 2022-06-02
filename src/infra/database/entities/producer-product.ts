@@ -1,10 +1,11 @@
 import { Column, Entity, Index, JoinColumn, ManyToOne, PrimaryColumn } from 'typeorm';
+import { BaseEntity } from './base-entity';
 import { Producer } from './producer';
 import { Product } from './product';
 import { UnitMeasure } from './unit-measure';
 
 @Entity('producer_product')
-export class ProducerProduct {
+export class ProducerProduct extends BaseEntity {
   @PrimaryColumn({ type: 'uuid', name: 'producer_product_id' })
   public readonly id!: string;
 
