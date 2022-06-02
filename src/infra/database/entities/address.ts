@@ -1,8 +1,9 @@
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryColumn } from 'typeorm';
 import { BaseEntity } from './base-entity';
 import { User } from './user';
 import { maxSize } from '@src/domain/constants';
 import { myTransformer } from '../helpers';
+import { Market } from './market';
 
 @Entity('address')
 export class Address extends BaseEntity {
@@ -11,6 +12,9 @@ export class Address extends BaseEntity {
 
   @Column({ type: 'uuid', name: 'user_id', nullable: true, update: false, select: false })
   public readonly userId!: string;
+
+  @Column({ type: 'uuid', name: 'market_id', nullable: true, update: false, select: false })
+  public readonly marketId!: string;
 
   @Column({ type: 'varchar', length: maxSize.ADDRESS_STATE })
   public readonly state!: string;
@@ -54,4 +58,8 @@ export class Address extends BaseEntity {
   @ManyToOne(() => User, user => user.address, { onDelete: 'CASCADE', onUpdate: 'CASCADE' })
   @JoinColumn({ name: 'user_id', referencedColumnName: 'id' })
   public readonly user!: User;
+
+  @OneToOne(() => Market, market => market.address, { onDelete: 'CASCADE', onUpdate: 'CASCADE' })
+  @JoinColumn({ name: 'market_id', referencedColumnName: 'id' })
+  public readonly market!: Market;
 }
