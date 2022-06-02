@@ -5,7 +5,7 @@ import { ToBeAssert } from '@src/domain/validators/on-error';
 import { ValidateResponse } from '@src/types/responses';
 import { Set, Assert, Errors, Validated } from './create-producer-product.type';
 
-export class UpdateCustomerModel {
+export class CreateProducerProductModel {
   private readonly toUpdate: CreateProducerProductDTO;
   protected productIdOrError!: ValidateResponse<ValidateUUID>;
   protected producerIdOrError!: ValidateResponse<ValidateUUID>;
