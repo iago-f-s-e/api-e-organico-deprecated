@@ -20,7 +20,7 @@
   "ignorePatterns": [
     "dist",
     "jest.config.js",
-    "src/modules/database/migrations",
+    "src/infra/database/migrations",
     "src/server/config"
   ],
   "rules": {

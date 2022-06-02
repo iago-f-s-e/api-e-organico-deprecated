@@ -13,15 +13,15 @@ export const DB_USER = process.env.DB_USER || 'postgres';
 
 export const DB_PASS = process.env.DB_PASS || 'postgres';
 
-export const DB_PATH_ENTITIES = `${dir}/modules/database/entities/*.{ts,js}`;
+export const DB_PATH_ENTITIES = `${dir}/infra/database/entities/*.{ts,js}`;
 
-export const DB_PATH_MIGRATIONS = `${dir}/modules/database/migrations/*.{ts,js}`;
+export const DB_PATH_MIGRATIONS = `${dir}/infra/database/migrations/*.{ts,js}`;
 
-export const DB_PATH_SAVE_MIGRATIONS = `${dir}/modules/database/migrations`;
+export const DB_PATH_SAVE_MIGRATIONS = `${dir}/infra/database/migrations`;
 
-export const DB_PATH_SEEDS = `${dir}/modules/database/seeds/*.{ts,js}`;
+export const DB_PATH_SEEDS = `${dir}/infra/database/seeds/*.{ts,js}`;
 
-export const DB_PATH_SAVE_SEEDS = `${dir}/modules/database/seeds`;
+export const DB_PATH_SAVE_SEEDS = `${dir}/infra/database/seeds`;
 
 export const DB_LOGGING: LoggerOptions = ['error', 'warn', 'query'];
 

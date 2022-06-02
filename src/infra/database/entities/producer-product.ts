@@ -31,14 +31,14 @@ export class ProducerProduct {
   public readonly isActive!: boolean;
 
   @ManyToOne(() => UnitMeasure, unit => unit.producerProducts)
-  @JoinColumn({ name: 'unitMeasureId', referencedColumnName: 'id' })
+  @JoinColumn({ name: 'unit_measure_id', referencedColumnName: 'id' })
   public readonly unitMeasure!: UnitMeasure;
 
   @ManyToOne(() => Product, product => product.producerProducts)
-  @JoinColumn({ name: 'productId', referencedColumnName: 'id' })
+  @JoinColumn({ name: 'product_id', referencedColumnName: 'id' })
   public readonly product!: Product;
 
   @ManyToOne(() => Producer, producer => producer.producerProducts)
-  @JoinColumn({ name: 'producerId', referencedColumnName: 'id' })
+  @JoinColumn({ name: 'producer_id', referencedColumnName: 'id' })
   public readonly producer!: Producer;
 }

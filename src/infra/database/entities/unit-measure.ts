@@ -2,7 +2,6 @@ import { maxSize } from '@src/domain/constants';
 import { Column, Entity, Index, OneToMany, PrimaryColumn } from 'typeorm';
 import { BaseEntity } from './base-entity';
 import { ProducerProduct } from './producer-product';
-import { Product } from './product';
 
 @Index('IDX_unit_measure_abbreviation_name', ['name', 'abbreviation'], { unique: true })
 @Entity('unit_measure')

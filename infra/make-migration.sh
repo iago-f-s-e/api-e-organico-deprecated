@@ -23,7 +23,7 @@ try
     read -p 'Migration name: ' NAME
 
     yarn migration:gen $NAME > /dev/null 2>&1 || throw $ERR_BAD
-    mv *.ts src/modules/database/migrations 
+    mv *.ts src/infra/database/migrations 
     yarn migration:run
 
     echo "Migration was created successfully!"
