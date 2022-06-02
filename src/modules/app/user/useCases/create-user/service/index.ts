@@ -2,7 +2,7 @@ import { ConflictException, Injectable } from '@nestjs/common';
 import { left, right } from '@src/modules/common/either';
 import { CacheService, PassService } from '@src/modules/common/services';
 import { CreateResponse } from '@src/modules/common/types/responses';
-import { User } from '@src/modules/database/entities';
+import { User } from '@src/infra/database/entities';
 import { UserToClientDTO } from '../../../dtos';
 import { userToClient } from '../../../helpers';
 

@@ -1,4 +1,4 @@
-import { Address } from '@src/modules/database/entities';
+import { Address } from '@src/infra/database/entities';
 import { AddressToClient } from '../dtos';
 
 export function addressToClient(data: Address): AddressToClient {

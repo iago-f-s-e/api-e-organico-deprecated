@@ -1,5 +1,5 @@
 import { Body, Controller, Post } from '@nestjs/common';
-import { UnitMeasure } from '@src/modules/database/entities';
+import { UnitMeasure } from '@src/infra/database/entities';
 import { UnitMeasureDTO } from '../../../dtos';
 import { ValidateToCreateUnitMeasure } from '../entity';
 import { CreateUnitMeasureService } from '../service';

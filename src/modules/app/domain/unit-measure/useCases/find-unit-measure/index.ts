@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { RouteTree } from '@nestjs/core';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { UnitMeasure } from '@src/modules/database/entities';
+import { UnitMeasure } from '@src/infra/database/entities';
 import { FindUnitMeasureController } from './controller';
 import { FindUnitMeasureRepository } from './repository';
 import { FindUnitMeasureService } from './service';

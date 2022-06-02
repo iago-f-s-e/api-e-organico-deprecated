@@ -1,4 +1,4 @@
-import { UnitMeasure } from '@src/modules/database/entities';
+import { UnitMeasure } from '@src/infra/database/entities';
 import { UnitMeasureToClientDTO } from '../dtos';
 
 const capitalize = (value: string): string => `${value[0]}${value.slice(1).toLowerCase()}`;

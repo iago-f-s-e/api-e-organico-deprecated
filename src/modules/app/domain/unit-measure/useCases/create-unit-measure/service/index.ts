@@ -1,7 +1,7 @@
 import { ConflictException, Injectable } from '@nestjs/common';
 import { left, right } from '@src/modules/common/either';
 import { CreateResponse } from '@src/modules/common/types/responses';
-import { UnitMeasure } from '@src/modules/database/entities';
+import { UnitMeasure } from '@src/infra/database/entities';
 import { UpdateResult } from 'typeorm';
 import { FindUnitMeasureRepository } from '../../find-unit-measure/repository';
 import { UpdateUnitMeasureRepository } from '../../update-unit-measure/repository';

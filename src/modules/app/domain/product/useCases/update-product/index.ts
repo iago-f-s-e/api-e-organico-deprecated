@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Product } from '@src/modules/database/entities';
+import { Product } from '@src/infra/database/entities';
 import { UpdateProductRepository } from './repository';
 
 @Module({

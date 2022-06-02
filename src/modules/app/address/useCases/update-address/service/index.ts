@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Address } from '@src/modules/database/entities';
+import { Address } from '@src/infra/database/entities';
 import { UpdateResult } from 'typeorm';
 import { CreateAddressRepository } from '../../create-address/repository';
 import { UpdateAddressDTO } from '../dtos';

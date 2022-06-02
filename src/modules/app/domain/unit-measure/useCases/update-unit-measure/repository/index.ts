@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { UnitMeasure } from '@src/modules/database/entities';
+import { UnitMeasure } from '@src/infra/database/entities';
 import { Repository, UpdateResult } from 'typeorm';
 
 @Injectable()

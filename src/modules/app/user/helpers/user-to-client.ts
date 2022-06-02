@@ -1,4 +1,4 @@
-import { User } from '@src/modules/database/entities';
+import { User } from '@src/infra/database/entities';
 import { addressToClient } from '../../address/helpers';
 import { producerToClient } from '../../producer/helpers';
 import { UserToClientDTO } from '../dtos';

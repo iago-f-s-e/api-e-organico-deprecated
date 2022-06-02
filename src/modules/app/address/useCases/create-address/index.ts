@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Address } from '@src/modules/database/entities';
+import { Address } from '@src/infra/database/entities';
 import { CreateAddressRepository } from './repository';
 
 @Module({
