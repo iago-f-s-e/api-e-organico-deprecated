@@ -1,5 +1,5 @@
 import { Column, Entity, Index, OneToMany, OneToOne, PrimaryColumn } from 'typeorm';
-import { maxSize } from '@src/modules/common/constants';
+import { maxSize } from '@src/domain/constants';
 import { myTransformer } from '../helpers';
 import { Address } from './address';
 import { BaseEntity } from './base-entity';

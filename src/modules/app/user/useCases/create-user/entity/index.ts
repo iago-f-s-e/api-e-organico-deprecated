@@ -1,6 +1,6 @@
 import { ValidateToCreateAddress } from '@src/modules/app/address/useCases/create-address/entity';
 import { ValidateToCreateProducer } from '@src/modules/app/producer/useCases/create-producer/entity';
-import { maxSize, minSize } from '@src/modules/common/constants';
+import { maxSize, minSize } from '@src/domain/constants';
 import { ValidateResponse } from '@src/modules/common/types/responses';
 import { ValidateDocument, ValidateEmail, ValidateString } from '@src/modules/common/validators';
 import { ToBeAssert } from '@src/modules/common/validators/types';

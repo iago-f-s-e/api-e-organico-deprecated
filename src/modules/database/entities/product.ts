@@ -1,6 +1,7 @@
-import { maxSize } from '@src/modules/common/constants';
-import { Column, Entity, Index, PrimaryColumn } from 'typeorm';
+import { maxSize } from '@src/domain/constants';
+import { Column, Entity, Index, OneToMany, PrimaryColumn } from 'typeorm';
 import { BaseEntity } from './base-entity';
+import { ProducerProduct } from './producer-product';
 
 @Entity('product')
 export class Product extends BaseEntity {
@@ -17,4 +18,10 @@ export class Product extends BaseEntity {
   @Index('IDX_product_is_active', { unique: false })
   @Column({ type: 'boolean', name: 'is_active', default: true })
   public readonly isActive!: boolean;
+
+  @OneToMany(() => ProducerProduct, products => products.product, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE'
+  })
+  public readonly producerProducts!: ProducerProduct[];
 }

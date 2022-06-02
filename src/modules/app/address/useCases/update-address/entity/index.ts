@@ -1,4 +1,4 @@
-import { maxSize, minSize } from '@src/modules/common/constants';
+import { maxSize, minSize } from '@src/domain/constants';
 import { ValidateResponse } from '@src/modules/common/types/responses';
 import { ValidateNumber, ValidateString } from '@src/modules/common/validators';
 import { ToBeAssert } from '@src/modules/common/validators/types';

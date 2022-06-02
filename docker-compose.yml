@@ -1,11 +1,6 @@
 version: '3.6'
 
 services:
-  cache:
-    build: ./.docker/redis
-    restart: always
-    ports:
-      - 6379:6379
   db:
     build: ./.docker/postgres
     restart: always
@@ -28,3 +23,5 @@ services:
       - 8080:8080
     volumes:
       - .:/home/node/api
+    extra_hosts:
+      - "host.redis.internal:172.17.0.1"

@@ -1,7 +1,7 @@
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from 'typeorm';
 import { BaseEntity } from './base-entity';
 import { User } from './user';
-import { maxSize } from '@src/modules/common/constants';
+import { maxSize } from '@src/domain/constants';
 import { myTransformer } from '../helpers';
 
 @Entity('address')
