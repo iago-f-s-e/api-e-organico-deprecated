@@ -17,9 +17,9 @@ export class ReserveUserPhone {
   }
 
   public async exec(data: ReservePhoneDTO, key: string): CreateResponse<null> {
-    const documentExistis = await this.findUser.existingByDocument(data.phone);
+    const phoneExistis = await this.findUser.existingByPhone(data.phone);
 
-    if (documentExistis) return left(new ConflictException(this.errorMessage()));
+    if (phoneExistis) return left(new ConflictException(this.errorMessage()));
 
     this.cacheService.set(key, data).catch(err => console.error(err));
 

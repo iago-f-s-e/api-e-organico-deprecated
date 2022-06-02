@@ -25,9 +25,9 @@ export class FindUserRepository {
     });
   }
 
-  public existingByPhone(email: string): Promise<User | null> {
+  public existingByPhone(phone: string): Promise<User | null> {
     return this.user.findOne({
-      where: { email },
+      where: { phone },
       select: {
         id: true
       }
