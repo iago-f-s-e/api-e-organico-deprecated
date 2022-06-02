@@ -1,13 +1,13 @@
 import { Body, ConflictException, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
+import { RedisService } from '@src/infra/redis/services';
 
-import { CacheService } from '@src/modules/common/services';
 import { ReservePhoneDTO } from '../dtos';
 import { ReserveUserPhone } from '../services';
 
 @Controller('reserve-phone')
 export class SignUpReserveUserPhoneController {
   constructor(
-    private readonly cacheService: CacheService,
+    private readonly cacheService: RedisService,
     private readonly service: ReserveUserPhone
   ) {}
 

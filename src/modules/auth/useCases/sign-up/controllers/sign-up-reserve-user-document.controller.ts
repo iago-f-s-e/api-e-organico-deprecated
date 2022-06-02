@@ -1,12 +1,12 @@
 import { Body, ConflictException, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
-import { CacheService } from '@src/modules/common/services';
+import { RedisService } from '@src/infra/redis/services';
 import { ReserveDocumentDTO } from '../dtos';
 import { ReserveUserDocument } from '../services';
 
 @Controller('reserve-document')
 export class SignUpReserveUserDocumentController {
   constructor(
-    private readonly cacheService: CacheService,
+    private readonly cacheService: RedisService,
     private readonly service: ReserveUserDocument
   ) {}
 

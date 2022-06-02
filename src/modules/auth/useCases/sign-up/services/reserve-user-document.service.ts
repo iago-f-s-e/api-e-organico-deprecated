@@ -1,7 +1,7 @@
 import { ConflictException, Injectable } from '@nestjs/common';
+import { RedisService } from '@src/infra/redis/services';
 import { FindUserRepository } from '@src/modules/app/user/useCases/find-user/repository';
 import { left, right } from '@src/modules/common/either';
-import { CacheService } from '@src/modules/common/services';
 import { CreateResponse } from '@src/modules/common/types';
 import { ReserveDocumentDTO } from '../dtos';
 
@@ -9,7 +9,7 @@ import { ReserveDocumentDTO } from '../dtos';
 export class ReserveUserDocument {
   constructor(
     private readonly findUser: FindUserRepository,
-    private readonly cacheService: CacheService
+    private readonly cacheService: RedisService
   ) {}
 
   private errorMessage(): string {

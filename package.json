@@ -22,6 +22,8 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
+    "typecheck": "yarn tsc --noEmit",
+    "typewatch": "yarn tsc -w --noEmit",
     "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
     "typeorm:run": "yarn migration:run && yarn seeds:run",
     "migration:gen": "yarn typeorm migration:generate -p -d src/modules/database/cli/default-connection.ts",

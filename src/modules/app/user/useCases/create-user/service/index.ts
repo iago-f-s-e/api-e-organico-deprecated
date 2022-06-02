@@ -1,6 +1,6 @@
 import { ConflictException, Injectable } from '@nestjs/common';
 import { left, right } from '@src/modules/common/either';
-import { CacheService, PassService } from '@src/modules/common/services';
+import { PassService } from '@src/modules/common/services';
 import { CreateResponse } from '@src/modules/common/types/responses';
 import { User } from '@src/infra/database/entities';
 import { UserToClientDTO } from '../../../dtos';
@@ -9,6 +9,7 @@ import { userToClient } from '../../../helpers';
 import { FindUserRepository } from '../../find-user/repository';
 import { CreateUserDTO } from '../dtos';
 import { CreateUserRepository } from '../repository';
+import { RedisService } from '@src/infra/redis/services';
 
 @Injectable()
 export class CreateUserService {
@@ -16,7 +17,7 @@ export class CreateUserService {
     private readonly createUser: CreateUserRepository,
     private readonly findUser: FindUserRepository,
     private readonly passService: PassService,
-    private readonly cacheService: CacheService
+    private readonly cacheService: RedisService
   ) {}
 
   private async clearCache(user: User): Promise<void> {
