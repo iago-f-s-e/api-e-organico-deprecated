@@ -10,6 +10,16 @@ import { Address } from '../entities';
  * Complemento: Fazenda nova esperança
  */
 
+/**
+ * Street: 2+mYHtEkT/lUyVCPkapkHxqHLuY50q/cwHQXHkCvgFtjzr7Cb+UgVYj5p/3mP/QR
+ * Number: 379
+ * ZipCode: 2+mYHtEkT/lUyVCPkapkH66WcOXcRLNoNnZGnzB0Pas=
+ * District: 2+mYHtEkT/lUyVCPkapkH3xmjZFL1j2aTrpxCXDSToY=
+ * City: ARACAJU,
+ * State: SERGIPE
+ * Complement: 2+mYHtEkT/lUyVCPkapkH4cF/QsB8gNhfqHHovrEmS4B9MVK6KC9SDKWoRxtvfRg
+ */
+
 export const addressFixtures: Omit<Address, 'user' | 'market' | 'property'>[] = [
   {
     id: 'ae8d5bb5-b314-4da1-8afe-65f0a1f550c7',
@@ -18,10 +28,10 @@ export const addressFixtures: Omit<Address, 'user' | 'market' | 'property'>[] = 
     propertyId: null as unknown as string,
     state: 'SERGIPE',
     city: 'ARACAJU',
-    district: '2+mYHtEkT/lUyVCPkapkH3xmjZFL1j2aTrpxCXDSToY=',
-    street: '2+mYHtEkT/lUyVCPkapkHxqHLuY50q/cwHQXHkCvgFtjzr7Cb+UgVYj5p/3mP/QR',
-    zipCode: '2+mYHtEkT/lUyVCPkapkH66WcOXcRLNoNnZGnzB0Pas=',
-    complement: '2+mYHtEkT/lUyVCPkapkH4cF/QsB8gNhfqHHovrEmS4B9MVK6KC9SDKWoRxtvfRg',
+    district: 'Santo Antônio',
+    street: 'Avenida Maranhão',
+    zipCode: '49060400',
+    complement: 'Fazenda nova esperança',
     number: 379
   },
   {
@@ -31,10 +41,10 @@ export const addressFixtures: Omit<Address, 'user' | 'market' | 'property'>[] = 
     propertyId: null as unknown as string,
     state: 'SERGIPE',
     city: 'ARACAJU',
-    district: '2+mYHtEkT/lUyVCPkapkH3xmjZFL1j2aTrpxCXDSToY=',
-    street: '2+mYHtEkT/lUyVCPkapkHxqHLuY50q/cwHQXHkCvgFtjzr7Cb+UgVYj5p/3mP/QR',
-    zipCode: '2+mYHtEkT/lUyVCPkapkH66WcOXcRLNoNnZGnzB0Pas=',
-    complement: '2+mYHtEkT/lUyVCPkapkH4cF/QsB8gNhfqHHovrEmS4B9MVK6KC9SDKWoRxtvfRg',
+    district: 'Santo Antônio',
+    street: 'Avenida Maranhão',
+    zipCode: '49060400',
+    complement: 'Fazenda nova esperança',
     number: 379
   }
 ];
