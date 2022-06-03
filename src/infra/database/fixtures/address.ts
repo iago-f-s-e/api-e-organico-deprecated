@@ -23,5 +23,18 @@ export const addressFixtures: Omit<Address, 'user' | 'market' | 'property'>[] = 
     zipCode: '2+mYHtEkT/lUyVCPkapkH66WcOXcRLNoNnZGnzB0Pas=',
     complement: '2+mYHtEkT/lUyVCPkapkH4cF/QsB8gNhfqHHovrEmS4B9MVK6KC9SDKWoRxtvfRg',
     number: 379
+  },
+  {
+    id: 'ad4041f5-2a48-4ca3-be83-54da54bd2fa2',
+    userId: null as unknown as string,
+    marketId: '66ac5b51-8b01-4a70-8472-00f863c0acf4',
+    propertyId: null as unknown as string,
+    state: 'SERGIPE',
+    city: 'ARACAJU',
+    district: '2+mYHtEkT/lUyVCPkapkH3xmjZFL1j2aTrpxCXDSToY=',
+    street: '2+mYHtEkT/lUyVCPkapkHxqHLuY50q/cwHQXHkCvgFtjzr7Cb+UgVYj5p/3mP/QR',
+    zipCode: '2+mYHtEkT/lUyVCPkapkH66WcOXcRLNoNnZGnzB0Pas=',
+    complement: '2+mYHtEkT/lUyVCPkapkH4cF/QsB8gNhfqHHovrEmS4B9MVK6KC9SDKWoRxtvfRg',
+    number: 379
   }
 ];
