@@ -1,8 +1,9 @@
-import { Column, Index, JoinColumn, ManyToOne, OneToOne, PrimaryColumn } from 'typeorm';
+import { Column, Entity, Index, JoinColumn, ManyToOne, OneToOne, PrimaryColumn } from 'typeorm';
 import { Address } from './address';
 import { BaseEntity } from './base-entity';
 import { Producer } from './producer';
 
+@Entity('property')
 @Index('IDX_producer_property_name', ['name', 'producerId'], { unique: true })
 export class Property extends BaseEntity {
   @PrimaryColumn({ type: 'uuid', name: 'property_id' })

@@ -11,12 +11,12 @@ export class Market extends BaseEntity {
   @Column({ type: 'varchar' })
   public readonly name!: string;
 
-  @OneToMany(() => Workday, workdays => workdays.market, { cascade: true })
-  public readonly workdays!: Workday[];
-
   @Index('IDX_market_is_active', { unique: false })
   @Column({ type: 'boolean', name: 'is_active', default: true })
   public readonly isActive!: boolean;
+
+  @OneToMany(() => Workday, workdays => workdays.market, { cascade: true })
+  public readonly workdays!: Workday[];
 
   @OneToOne(() => Address, address => address.market, { cascade: true })
   public readonly address!: Address;
