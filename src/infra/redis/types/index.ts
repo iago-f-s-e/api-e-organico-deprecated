@@ -1,4 +1,5 @@
 import { MarketToClient } from '@src/domain/dtos/market';
+import { ProductToClient } from '@src/domain/dtos/product';
 import {
   ReserveDocumentDTO,
   ReserveEmailDTO,
@@ -9,6 +10,7 @@ export type CachePayload =
   | ReservePhoneDTO
   | ReserveDocumentDTO
   | ReserveEmailDTO
-  | MarketToClient[];
+  | MarketToClient[]
+  | ProductToClient[];
 
 export type HasAndDelResponse = 1 | 0;

@@ -8,11 +8,11 @@ export class MarketRepository {
   constructor(@InjectRepository(Market) private readonly market: Repository<Market>) {}
 
   public async findAll(): Promise<Market[]> {
-    const a = await this.market.findAndCount();
-    console.log(a);
-
     return this.market.find({
       where: { isActive: true },
+      order: {
+        name: 'ASC'
+      },
       select: {
         id: true,
         name: true,

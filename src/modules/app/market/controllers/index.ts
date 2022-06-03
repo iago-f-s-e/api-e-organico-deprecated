@@ -20,6 +20,8 @@ export class MarketController {
 
     const markets = (await this.findUseCase.exec()).map(market => marketToClient(market));
 
+    this.redisService.set(keys.ALL_MARKETS, markets);
+
     return markets;
   }
 }
