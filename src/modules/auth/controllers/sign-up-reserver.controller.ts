@@ -1,7 +1,7 @@
 import { Body, ConflictException, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
+import { ReserveDocumentDTO, ReserveEmailDTO, ReservePhoneDTO } from '@src/domain/dtos/auth';
 import { RedisService } from '@src/infra/redis/services';
 import { ReserveUserDocument, ReserveUserEmail, ReserveUserPhone } from '../services';
-import { ReserveDocumentDTO, ReserveEmailDTO, ReservePhoneDTO } from '../useCases/sign-up/dtos';
 
 @Controller()
 export class SignUpReserveUserDocumentController {

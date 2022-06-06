@@ -1,14 +1,14 @@
 import { ConflictException, Injectable } from '@nestjs/common';
+import { ReserveDocumentDTO } from '@src/domain/dtos/auth/reserve-document.dto';
+import { UserRepository } from '@src/infra/database/repositories/user.repository';
 import { RedisService } from '@src/infra/redis/services';
-import { FindUserRepository } from '@src/modules/app/user/useCases/find-user/repository';
 import { left, right } from '@src/modules/common/either';
 import { CreateResponse } from '@src/modules/common/types';
-import { ReserveDocumentDTO } from '../useCases/sign-up/dtos';
 
 @Injectable()
 export class ReserveUserDocument {
   constructor(
-    private readonly findUser: FindUserRepository,
+    private readonly useRepository: UserRepository,
     private readonly cacheService: RedisService
   ) {}
 
@@ -17,7 +17,7 @@ export class ReserveUserDocument {
   }
 
   public async exec(data: ReserveDocumentDTO, key: string): CreateResponse<null> {
-    const documentExistis = await this.findUser.existingByDocument(data.document);
+    const documentExistis = await this.useRepository.existingByDocument(data.document);
 
     if (documentExistis) return left(new ConflictException(this.errorMessage()));
 

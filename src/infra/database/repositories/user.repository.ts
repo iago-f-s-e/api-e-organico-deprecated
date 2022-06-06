@@ -1,11 +1,16 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { User } from '@src/infra/database/entities';
+import { CreateUserDTO } from '@src/domain/dtos/user';
 import { Repository } from 'typeorm';
+import { User } from '../entities';
 
 @Injectable()
-export class FindUserRepository {
+export class UserRepository {
   constructor(@InjectRepository(User) private readonly user: Repository<User>) {}
+
+  public insert(data: CreateUserDTO): Promise<User> {
+    return this.user.save(this.user.create(data));
+  }
 
   public existingByDocument(document: string): Promise<User | null> {
     return this.user.findOne({

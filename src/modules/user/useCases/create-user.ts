@@ -1,21 +1,16 @@
 import { ConflictException, Injectable } from '@nestjs/common';
-import { left, right } from '@src/modules/common/either';
-import { PassService } from '@src/modules/common/services';
-import { CreateResponse } from '@src/modules/common/types/responses';
+import { CreateUserDTO } from '@src/domain/dtos/user';
 import { User } from '@src/infra/database/entities';
-import { UserToClientDTO } from '../../../dtos';
-import { userToClient } from '../../../helpers';
-
-import { FindUserRepository } from '../../find-user/repository';
-import { CreateUserDTO } from '../dtos';
-import { CreateUserRepository } from '../repository';
+import { UserRepository } from '@src/infra/database/repositories/user.repository';
 import { RedisService } from '@src/infra/redis/services';
+import { PassService } from '@src/modules/common/services';
+import { left, right } from '@src/shared/either';
+import { CreateResponse } from '@src/types/responses';
 
 @Injectable()
-export class CreateUserService {
+export class CreateUserUserCase {
   constructor(
-    private readonly createUser: CreateUserRepository,
-    private readonly findUser: FindUserRepository,
+    private readonly repository: UserRepository,
     private readonly passService: PassService,
     private readonly cacheService: RedisService
   ) {}
@@ -32,10 +27,10 @@ export class CreateUserService {
     return `The ${prop} "${prop === 'cpf' ? data.document : data.email}" already exists`;
   }
 
-  public async exec(data: CreateUserDTO): CreateResponse<UserToClientDTO> {
+  public async exec(data: CreateUserDTO): CreateResponse<User> {
     const [documentExists, emailExists, password] = await Promise.all([
-      this.findUser.existingByDocument(data.document),
-      this.findUser.existingByEmail(data.email),
+      this.repository.existingByDocument(data.document),
+      this.repository.existingByEmail(data.email),
       this.passService.hash(data.password)
     ]);
 
@@ -43,10 +38,10 @@ export class CreateUserService {
 
     if (emailExists) return left(new ConflictException(this.errorMessage(data, 'email')));
 
-    const user = await this.createUser.exec({ ...data, password });
+    const user = await this.repository.insert({ ...data, password });
 
     this.clearCache(user);
 
-    return right(userToClient(user));
+    return right(user);
   }
 }

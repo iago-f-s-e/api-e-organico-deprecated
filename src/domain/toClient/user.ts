@@ -1,9 +1,9 @@
 import { User } from '@src/infra/database/entities';
-import { addressToClient } from '../../address/helpers';
-import { producerToClient } from '../../producer/helpers';
-import { UserToClientDTO } from '../dtos';
+import { UserToClient } from '../dtos/user';
+import { addressToClient } from './address';
+import { producerToClient } from './producer';
 
-export function userToClient(data: User): UserToClientDTO {
+export function userToClient(data: User): UserToClient {
   const isProducer = !!data.producer;
   const userType = isProducer ? 'producer' : 'consumer';
 

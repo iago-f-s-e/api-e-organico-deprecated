@@ -1,6 +1,6 @@
-import { UserToClientDTO } from '@src/modules/app/user/dtos';
+import { UserToClient } from './../user/user-to-client.dto';
 
 export type LoggedUserDTO = {
   token: string;
-  user: UserToClientDTO;
+  user: UserToClient;
 };
