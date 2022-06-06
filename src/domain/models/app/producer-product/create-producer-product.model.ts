@@ -1,5 +1,4 @@
-import { CreateProducerProductDTO } from '@src/domain/dtos/producer-product/create-producer-product.dto';
-import { ProducerProductDTO } from '@src/domain/dtos/producer-product/producer-product.dto';
+import { CreateProducerProductDTO, ProducerProductDTO } from '@src/domain/dtos/producer-product';
 import { ValidateNumber, ValidateUUID } from '@src/domain/validators';
 import { ToBeAssert } from '@src/domain/validators/on-error';
 import { ValidateResponse } from '@src/types/responses';

@@ -22,7 +22,9 @@ export class Producer {
   @JoinColumn({ name: 'producer_id', referencedColumnName: 'id' })
   public readonly user!: User;
 
-  @OneToMany(() => ProducerProduct, producerProducts => producerProducts.producer)
+  @OneToMany(() => ProducerProduct, producerProducts => producerProducts.producer, {
+    cascade: true
+  })
   public readonly producerProducts!: ProducerProduct[];
 
   @OneToMany(() => Property, properties => properties.producer)

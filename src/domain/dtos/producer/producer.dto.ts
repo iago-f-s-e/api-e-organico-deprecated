@@ -3,6 +3,11 @@ import { CertificationType } from '@src/types/entities';
 import { ProducerMarketDTO } from '../producer-market';
 import { ProducerProductDTO } from '../producer-product/producer-product.dto';
 
+export type ProducerPropDTO = {
+  makeDelivery: boolean;
+  certificationType: CertificationType;
+};
+
 export type ProducerDTO = {
   id: string;
   name: string;
@@ -11,10 +16,7 @@ export type ProducerDTO = {
   document: string;
   password: string;
   address: AddressDTO;
-  producer: {
-    makeDelivery: boolean;
-    certificationType: CertificationType;
-  };
+  producer: ProducerPropDTO;
   markets: ProducerMarketDTO[];
   products: ProducerProductDTO[];
 };

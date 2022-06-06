@@ -1,6 +1,5 @@
 export type ProducerProductDTO = {
   id: string;
-
   price: string;
   stock: string;
   harvestDate: string;

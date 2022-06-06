@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { CreateProducerProductDTO } from '@src/domain/dtos/producer-product/create-producer-product.dto';
+import { CreateProducerProductDTO } from '@src/domain/dtos/producer-product';
 import { ProducerProduct } from '@src/infra/database/entities';
 import { ProducerProductRepository } from '@src/infra/database/repositories';
 import { right } from '@src/shared/either';
