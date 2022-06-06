@@ -3,6 +3,7 @@ import { maxSize } from '@src/domain/constants';
 import { Address } from './address';
 import { BaseEntity } from './base-entity';
 import { Producer } from './producer';
+import { Score } from './score';
 
 @Entity('user')
 @Index('IDX_user_phone_email_document', ['phone', 'email', 'document'], { unique: true })
@@ -43,4 +44,7 @@ export class User extends BaseEntity {
 
   @OneToOne(() => Producer, producer => producer.user, { cascade: true })
   public readonly producer!: Producer;
+
+  @OneToOne(() => Score, score => score.user, { cascade: true })
+  public readonly score!: Score;
 }

@@ -7,3 +7,4 @@ export * from './user';
 export * from './market';
 export * from './workday';
 export * from './property';
+export * from './score';

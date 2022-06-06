@@ -3,6 +3,7 @@ import { BaseEntity } from './base-entity';
 import { Workday } from './workday';
 import { Address } from './address';
 import { ProducerMarket } from './producer-markets';
+import { Score } from './score';
 
 @Entity('market')
 export class Market extends BaseEntity {
@@ -24,4 +25,7 @@ export class Market extends BaseEntity {
 
   @OneToOne(() => Address, address => address.market, { cascade: true })
   public readonly address!: Address;
+
+  @OneToOne(() => Score, score => score.market, { cascade: true })
+  public readonly score!: Score;
 }

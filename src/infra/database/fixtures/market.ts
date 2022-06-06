@@ -2,7 +2,7 @@ import { Market } from '../entities';
 
 export const marketFixtures: Omit<
   Market,
-  'address' | 'workdays' | 'isActive' | 'producerMarkets'
+  'address' | 'workdays' | 'isActive' | 'producerMarkets' | 'score'
 >[] = [
   {
     id: '66ac5b51-8b01-4a70-8472-00f863c0acf4',

@@ -1,7 +1,8 @@
-import { Column, Entity, Index, JoinColumn, ManyToOne, PrimaryColumn } from 'typeorm';
+import { Column, Entity, Index, JoinColumn, ManyToOne, OneToOne, PrimaryColumn } from 'typeorm';
 import { BaseEntity } from './base-entity';
 import { Producer } from './producer';
 import { Product } from './product';
+import { Score } from './score';
 import { UnitMeasure } from './unit-measure';
 
 @Entity('producer_product')
@@ -51,4 +52,7 @@ export class ProducerProduct extends BaseEntity {
   })
   @JoinColumn({ name: 'producer_id', referencedColumnName: 'id' })
   public readonly producer!: Producer;
+
+  @OneToOne(() => Score, score => score.producerProduct, { cascade: true })
+  public readonly score!: Score;
 }
