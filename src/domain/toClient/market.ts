@@ -7,13 +7,13 @@ import { workdayToClient } from './workday';
 
 type ToClient = (market: Market) => MarketToClient;
 
-const _defaultImage =
+const defaultImage =
   'https://www.amigodoclima.com.br/wp-content/themes/amigodoclima/img/not-available.png';
 
 export const marketToClient: ToClient = market => ({
   id: market.id,
   name: capitalize(market.name),
-  image: _defaultImage, // TODO: salvar imagem
+  image: defaultImage, // TODO: salvar imagem
   address: addressToClient(market.address),
   workdays: market.workdays
     .map(workday => workdayToClient(workday))
