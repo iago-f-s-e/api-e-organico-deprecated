@@ -9,6 +9,7 @@ export type ProducerPropDTO = {
 };
 
 export type ProducerDTO = {
+  type: 'producer';
   id: string;
   name: string;
   phone: string;

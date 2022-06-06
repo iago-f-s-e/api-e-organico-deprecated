@@ -1,6 +1,5 @@
 import { Column, Entity, Index, OneToMany, OneToOne, PrimaryColumn } from 'typeorm';
 import { maxSize } from '@src/domain/constants';
-import { myTransformer } from '../helpers';
 import { Address } from './address';
 import { BaseEntity } from './base-entity';
 import { Producer } from './producer';
@@ -25,11 +24,10 @@ export class User extends BaseEntity {
   @Index('IDX_user_document', { unique: true })
   @Column({
     type: 'varchar',
-    length: maxSize.USER_DOCUMENT + maxSize.TRANSFORMER,
+    length: maxSize.USER_DOCUMENT,
     unique: true,
     select: false,
-    update: false,
-    transformer: myTransformer
+    update: false
   })
   public readonly document!: string;
 

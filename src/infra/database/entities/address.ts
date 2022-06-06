@@ -2,7 +2,6 @@ import { Column, Entity, Index, JoinColumn, ManyToOne, OneToOne, PrimaryColumn }
 import { BaseEntity } from './base-entity';
 import { User } from './user';
 import { maxSize } from '@src/domain/constants';
-import { myTransformer } from '../helpers';
 import { Market } from './market';
 import { Property } from './property';
 
@@ -28,34 +27,16 @@ export class Address extends BaseEntity {
   @Column({ type: 'varchar', length: maxSize.ADDRESS_CITY })
   public readonly city!: string;
 
-  @Column({
-    type: 'varchar',
-    length: maxSize.ADDRESS_DISTRICT + maxSize.TRANSFORMER,
-    transformer: myTransformer
-  })
+  @Column({ type: 'varchar', length: maxSize.ADDRESS_DISTRICT })
   public readonly district!: string;
 
-  @Column({
-    type: 'varchar',
-    length: maxSize.ADDRESS_STREET + maxSize.TRANSFORMER,
-    transformer: myTransformer
-  })
+  @Column({ type: 'varchar', length: maxSize.ADDRESS_STREET })
   public readonly street!: string;
 
-  @Column({
-    type: 'varchar',
-    name: 'zip_code',
-    length: maxSize.ADDRESS_ZIP_CODE + maxSize.TRANSFORMER,
-    transformer: myTransformer
-  })
+  @Column({ type: 'varchar', name: 'zip_code', length: maxSize.ADDRESS_ZIP_CODE })
   public readonly zipCode!: string;
 
-  @Column({
-    type: 'varchar',
-    length: maxSize.ADDRESS_COMPLEMENT + maxSize.TRANSFORMER,
-    transformer: myTransformer,
-    nullable: true
-  })
+  @Column({ type: 'varchar', length: maxSize.ADDRESS_COMPLEMENT, nullable: true })
   public readonly complement?: string;
 
   @Column({ type: 'int', nullable: true })

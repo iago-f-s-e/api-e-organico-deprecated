@@ -8,7 +8,7 @@ import { CreateProducerMarketModel } from '../producer-market';
 import { CreateProducerProductModel } from '../producer-product';
 import { Assert, Errors, Set, Validated } from './create-producer.type';
 
-export class ValidateToCreateProducer {
+export class CreateProducerModel {
   private readonly toCreate: CreateProducerDTO;
   protected certificationTypeOrError!: ValidateResponse<ValidateCertification>;
 
