@@ -1,5 +1,6 @@
 import { CertificationType, ProducerStatus } from '@src/types/entities';
 import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryColumn } from 'typeorm';
+import { ProducerMarket } from './producer-markets';
 import { ProducerProduct } from './producer-product';
 import { Property } from './property';
 import { User } from './user';
@@ -26,6 +27,11 @@ export class Producer {
     cascade: true
   })
   public readonly producerProducts!: ProducerProduct[];
+
+  @OneToMany(() => ProducerMarket, producerMarkets => producerMarkets.producer, {
+    cascade: true
+  })
+  public readonly producerMarkets!: ProducerMarket[];
 
   @OneToMany(() => Property, properties => properties.producer)
   public readonly properties!: Property[];

@@ -2,6 +2,7 @@ import { Column, Entity, Index, OneToMany, OneToOne, PrimaryColumn } from 'typeo
 import { BaseEntity } from './base-entity';
 import { Workday } from './workday';
 import { Address } from './address';
+import { ProducerMarket } from './producer-markets';
 
 @Entity('market')
 export class Market extends BaseEntity {
@@ -17,6 +18,9 @@ export class Market extends BaseEntity {
 
   @OneToMany(() => Workday, workdays => workdays.market, { cascade: true })
   public readonly workdays!: Workday[];
+
+  @OneToMany(() => ProducerMarket, producerMarkets => producerMarkets.market)
+  public readonly producerMarkets!: ProducerMarket[];
 
   @OneToOne(() => Address, address => address.market, { cascade: true })
   public readonly address!: Address;

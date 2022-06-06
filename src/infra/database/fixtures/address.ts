@@ -1,25 +1,5 @@
 import { Address } from '../entities';
 
-/**
- * Rua: Avenida Maranhão
- * Número: 379
- * CEP: 49060-400
- * Bairro: Santo Antônio
- * Cidade: Aracaju
- * Estado: Sergipe
- * Complemento: Fazenda nova esperança
- */
-
-/**
- * Street: 2+mYHtEkT/lUyVCPkapkHxqHLuY50q/cwHQXHkCvgFtjzr7Cb+UgVYj5p/3mP/QR
- * Number: 379
- * ZipCode: 2+mYHtEkT/lUyVCPkapkH66WcOXcRLNoNnZGnzB0Pas=
- * District: 2+mYHtEkT/lUyVCPkapkH3xmjZFL1j2aTrpxCXDSToY=
- * City: ARACAJU,
- * State: SERGIPE
- * Complement: 2+mYHtEkT/lUyVCPkapkH4cF/QsB8gNhfqHHovrEmS4B9MVK6KC9SDKWoRxtvfRg
- */
-
 export const addressFixtures: Omit<Address, 'user' | 'market' | 'property'>[] = [
   {
     id: 'ae8d5bb5-b314-4da1-8afe-65f0a1f550c7',

@@ -1,9 +1,48 @@
 import { MigrationInterface, QueryRunner } from "typeorm";
 
-export class Tables1654202129538 implements MigrationInterface {
-    name = 'Tables1654202129538'
+export class Tables1654538408814 implements MigrationInterface {
+    name = 'Tables1654538408814'
 
     public async up(queryRunner: QueryRunner): Promise<void> {
+        await queryRunner.query(`
+            CREATE TABLE "workday" (
+                "workday_id" uuid NOT NULL,
+                "market_id" uuid NOT NULL,
+                "weekday" character varying NOT NULL,
+                "opening" character varying NOT NULL,
+                "closing" character varying NOT NULL,
+                "is_active" boolean NOT NULL DEFAULT true,
+                CONSTRAINT "PK_d8c90e83b6e0384eb96e72d2ee1" PRIMARY KEY ("workday_id")
+            )
+        `);
+        await queryRunner.query(`
+            CREATE INDEX "IDX_workday_is_active" ON "workday" ("is_active")
+        `);
+        await queryRunner.query(`
+            CREATE UNIQUE INDEX "IDX_market_weekday" ON "workday" ("market_id", "weekday")
+        `);
+        await queryRunner.query(`
+            CREATE TABLE "market" (
+                "market_id" uuid NOT NULL,
+                "name" character varying NOT NULL,
+                "is_active" boolean NOT NULL DEFAULT true,
+                CONSTRAINT "PK_1a8068c93b7b3b7f483268ea117" PRIMARY KEY ("market_id")
+            )
+        `);
+        await queryRunner.query(`
+            CREATE INDEX "IDX_market_is_active" ON "market" ("is_active")
+        `);
+        await queryRunner.query(`
+            CREATE TABLE "producer_market" (
+                "producer_id" uuid NOT NULL,
+                "market_id" uuid NOT NULL,
+                "is_active" boolean NOT NULL DEFAULT true,
+                CONSTRAINT "PK_7324b6159aa457c8e4ded6da544" PRIMARY KEY ("producer_id", "market_id")
+            )
+        `);
+        await queryRunner.query(`
+            CREATE INDEX "IDX_producer_market_is_active" ON "producer_market" ("is_active")
+        `);
         await queryRunner.query(`
             CREATE TABLE "product" (
                 "product_id" uuid NOT NULL,
@@ -90,7 +129,7 @@ export class Tables1654202129538 implements MigrationInterface {
                 "name" character varying(150) NOT NULL,
                 "phone" character varying(11) NOT NULL,
                 "email" character varying(100) NOT NULL,
-                "document" character varying(114) NOT NULL,
+                "document" character varying(14) NOT NULL,
                 "password" character varying NOT NULL,
                 "is_active" boolean NOT NULL DEFAULT true,
                 CONSTRAINT "UQ_8e1f623798118e629b46a9e6299" UNIQUE ("phone"),
@@ -115,34 +154,6 @@ export class Tables1654202129538 implements MigrationInterface {
             CREATE UNIQUE INDEX "IDX_user_phone_email_document" ON "user" ("phone", "email", "document")
         `);
         await queryRunner.query(`
-            CREATE TABLE "workday" (
-                "workday_id" uuid NOT NULL,
-                "market_id" uuid NOT NULL,
-                "weekday" character varying NOT NULL,
-                "opening" character varying NOT NULL,
-                "closing" character varying NOT NULL,
-                "is_active" boolean NOT NULL DEFAULT true,
-                CONSTRAINT "PK_d8c90e83b6e0384eb96e72d2ee1" PRIMARY KEY ("workday_id")
-            )
-        `);
-        await queryRunner.query(`
-            CREATE INDEX "IDX_workday_is_active" ON "workday" ("is_active")
-        `);
-        await queryRunner.query(`
-            CREATE UNIQUE INDEX "IDX_market_weekday" ON "workday" ("market_id", "weekday")
-        `);
-        await queryRunner.query(`
-            CREATE TABLE "market" (
-                "market_id" uuid NOT NULL,
-                "name" character varying NOT NULL,
-                "is_active" boolean NOT NULL DEFAULT true,
-                CONSTRAINT "PK_1a8068c93b7b3b7f483268ea117" PRIMARY KEY ("market_id")
-            )
-        `);
-        await queryRunner.query(`
-            CREATE INDEX "IDX_market_is_active" ON "market" ("is_active")
-        `);
-        await queryRunner.query(`
             CREATE TABLE "address" (
                 "address_id" uuid NOT NULL,
                 "user_id" uuid,
@@ -150,10 +161,10 @@ export class Tables1654202129538 implements MigrationInterface {
                 "property_id" uuid,
                 "state" character varying(35) NOT NULL,
                 "city" character varying(58) NOT NULL,
-                "district" character varying(150) NOT NULL,
-                "street" character varying(200) NOT NULL,
-                "zip_code" character varying(109) NOT NULL,
-                "complement" character varying(130),
+                "district" character varying(50) NOT NULL,
+                "street" character varying(100) NOT NULL,
+                "zip_code" character varying(9) NOT NULL,
+                "complement" character varying(30),
                 "number" integer,
                 CONSTRAINT "REL_2da624cf0abb585d301991e23c" UNIQUE ("market_id"),
                 CONSTRAINT "REL_7a756103194bdafc8e2fc20060" UNIQUE ("property_id"),
@@ -165,6 +176,18 @@ export class Tables1654202129538 implements MigrationInterface {
         `);
         await queryRunner.query(`
             CREATE UNIQUE INDEX "IDX_property_address" ON "address" ("property_id")
+        `);
+        await queryRunner.query(`
+            ALTER TABLE "workday"
+            ADD CONSTRAINT "FK_d80f26fcc57f1e83e72c07d8f4d" FOREIGN KEY ("market_id") REFERENCES "market"("market_id") ON DELETE CASCADE ON UPDATE CASCADE
+        `);
+        await queryRunner.query(`
+            ALTER TABLE "producer_market"
+            ADD CONSTRAINT "FK_9f019dbdb088f0f3d7be793c727" FOREIGN KEY ("market_id") REFERENCES "market"("market_id") ON DELETE CASCADE ON UPDATE CASCADE
+        `);
+        await queryRunner.query(`
+            ALTER TABLE "producer_market"
+            ADD CONSTRAINT "FK_8233ebe0984b6c7fbb49b121c51" FOREIGN KEY ("producer_id") REFERENCES "producer"("producer_id") ON DELETE CASCADE ON UPDATE CASCADE
         `);
         await queryRunner.query(`
             ALTER TABLE "producer_product"
@@ -185,10 +208,6 @@ export class Tables1654202129538 implements MigrationInterface {
         await queryRunner.query(`
             ALTER TABLE "producer"
             ADD CONSTRAINT "FK_626f808e3dff8f6073041756736" FOREIGN KEY ("producer_id") REFERENCES "user"("user_id") ON DELETE CASCADE ON UPDATE CASCADE
-        `);
-        await queryRunner.query(`
-            ALTER TABLE "workday"
-            ADD CONSTRAINT "FK_d80f26fcc57f1e83e72c07d8f4d" FOREIGN KEY ("market_id") REFERENCES "market"("market_id") ON DELETE CASCADE ON UPDATE CASCADE
         `);
         await queryRunner.query(`
             ALTER TABLE "address"
@@ -215,9 +234,6 @@ export class Tables1654202129538 implements MigrationInterface {
             ALTER TABLE "address" DROP CONSTRAINT "FK_35cd6c3fafec0bb5d072e24ea20"
         `);
         await queryRunner.query(`
-            ALTER TABLE "workday" DROP CONSTRAINT "FK_d80f26fcc57f1e83e72c07d8f4d"
-        `);
-        await queryRunner.query(`
             ALTER TABLE "producer" DROP CONSTRAINT "FK_626f808e3dff8f6073041756736"
         `);
         await queryRunner.query(`
@@ -233,6 +249,15 @@ export class Tables1654202129538 implements MigrationInterface {
             ALTER TABLE "producer_product" DROP CONSTRAINT "FK_d19e952c391e3a1044ed21a89e3"
         `);
         await queryRunner.query(`
+            ALTER TABLE "producer_market" DROP CONSTRAINT "FK_8233ebe0984b6c7fbb49b121c51"
+        `);
+        await queryRunner.query(`
+            ALTER TABLE "producer_market" DROP CONSTRAINT "FK_9f019dbdb088f0f3d7be793c727"
+        `);
+        await queryRunner.query(`
+            ALTER TABLE "workday" DROP CONSTRAINT "FK_d80f26fcc57f1e83e72c07d8f4d"
+        `);
+        await queryRunner.query(`
             DROP INDEX "public"."IDX_property_address"
         `);
         await queryRunner.query(`
@@ -240,21 +265,6 @@ export class Tables1654202129538 implements MigrationInterface {
         `);
         await queryRunner.query(`
             DROP TABLE "address"
-        `);
-        await queryRunner.query(`
-            DROP INDEX "public"."IDX_market_is_active"
-        `);
-        await queryRunner.query(`
-            DROP TABLE "market"
-        `);
-        await queryRunner.query(`
-            DROP INDEX "public"."IDX_market_weekday"
-        `);
-        await queryRunner.query(`
-            DROP INDEX "public"."IDX_workday_is_active"
-        `);
-        await queryRunner.query(`
-            DROP TABLE "workday"
         `);
         await queryRunner.query(`
             DROP INDEX "public"."IDX_user_phone_email_document"
@@ -315,6 +325,27 @@ export class Tables1654202129538 implements MigrationInterface {
         `);
         await queryRunner.query(`
             DROP TABLE "product"
+        `);
+        await queryRunner.query(`
+            DROP INDEX "public"."IDX_producer_market_is_active"
+        `);
+        await queryRunner.query(`
+            DROP TABLE "producer_market"
+        `);
+        await queryRunner.query(`
+            DROP INDEX "public"."IDX_market_is_active"
+        `);
+        await queryRunner.query(`
+            DROP TABLE "market"
+        `);
+        await queryRunner.query(`
+            DROP INDEX "public"."IDX_market_weekday"
+        `);
+        await queryRunner.query(`
+            DROP INDEX "public"."IDX_workday_is_active"
+        `);
+        await queryRunner.query(`
+            DROP TABLE "workday"
         `);
     }
 
