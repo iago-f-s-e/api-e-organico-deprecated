@@ -1,4 +1,4 @@
-import { CertificationType } from '@src/modules/common/types';
+import { CertificationType } from '@src/types/entities';
 
 export type CreateProducerDTO = {
   makeDelivery: boolean;

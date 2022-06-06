@@ -1,7 +1,7 @@
 import { Body, Controller, Post } from '@nestjs/common';
+import { LoggedUserDTO } from '@src/domain/dtos/auth';
 import { UserDTO } from '@src/modules/app/user/dtos';
 import { ValidateToCreateUser } from '@src/modules/app/user/useCases/create-user/entity';
-import { LoggedUserDTO } from '@src/modules/auth/dtos';
 import { SignUpRegisterUserService } from '../services';
 
 @Controller('register-producer')

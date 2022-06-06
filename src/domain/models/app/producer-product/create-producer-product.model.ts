@@ -8,7 +8,6 @@ import { Set, Assert, Errors, Validated } from './create-producer-product.type';
 export class CreateProducerProductModel {
   private readonly toUpdate: CreateProducerProductDTO;
   protected productIdOrError!: ValidateResponse<ValidateUUID>;
-  protected producerIdOrError!: ValidateResponse<ValidateUUID>;
   protected unitMeasureIdOrError!: ValidateResponse<ValidateUUID>;
   protected priceOrError!: ValidateResponse<ValidateNumber>;
   protected stockOrError!: ValidateResponse<ValidateNumber>;
@@ -17,7 +16,6 @@ export class CreateProducerProductModel {
     this.set(data);
 
     this.assert(
-      this.producerIdOrError,
       this.productIdOrError,
       this.unitMeasureIdOrError,
       this.priceOrError,
@@ -25,7 +23,6 @@ export class CreateProducerProductModel {
     );
 
     const productId = this.productIdOrError.value;
-    const producerId = this.producerIdOrError.value;
     const unitMeasureId = this.unitMeasureIdOrError.value;
     const price = this.priceOrError.value;
     const stock = this.stockOrError.value;
@@ -33,7 +30,6 @@ export class CreateProducerProductModel {
 
     this.toUpdate = this.afterAssert({
       productId,
-      producerId,
       unitMeasureId,
       price,
       stock,
@@ -44,15 +40,11 @@ export class CreateProducerProductModel {
   private set(data: ProducerProductDTO): asserts this is this & Set {
     const errorMessage = this.getErrorMessage(data);
 
-    this.producerIdOrError = ValidateUUID.exec(data.producerId, {
-      errorMessage: errorMessage.producerId
-    });
-
-    this.productIdOrError = ValidateUUID.exec(data.productId, {
+    this.productIdOrError = ValidateUUID.exec(data.product.id, {
       errorMessage: errorMessage.productId
     });
 
-    this.unitMeasureIdOrError = ValidateUUID.exec(data.unitMeasureId, {
+    this.unitMeasureIdOrError = ValidateUUID.exec(data.unitMeasure.id, {
       errorMessage: errorMessage.unitMeasureId
     });
 
@@ -85,9 +77,8 @@ export class CreateProducerProductModel {
 
   private getErrorMessage(data: ProducerProductDTO): Errors {
     return {
-      productId: `the product id ${data.productId} is not available`,
-      producerId: `the producer id ${data.producerId} is not available`,
-      unitMeasureId: `the unit measure id ${data.unitMeasureId} is not available`,
+      productId: `the product id ${data.product.id} is not available`,
+      unitMeasureId: `the unit measure id ${data.unitMeasure.id} is not available`,
       price: `the price ${data.price} is not available`,
       stock: `the stock ${data.stock} is not available`
     };
@@ -96,7 +87,6 @@ export class CreateProducerProductModel {
   private afterAssert(validated: Validated): CreateProducerProductDTO {
     return {
       productId: validated.productId.value,
-      producerId: validated.producerId.value,
       unitMeasureId: validated.unitMeasureId.value,
       price: validated.price.value,
       stock: validated.stock.value,

@@ -1,4 +1,4 @@
-import { CertificationType, ProducerStatus } from '@src/modules/common/types';
+import { CertificationType, ProducerStatus } from '@src/types/entities';
 import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryColumn } from 'typeorm';
 import { ProducerProduct } from './producer-product';
 import { Property } from './property';

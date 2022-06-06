@@ -4,7 +4,6 @@ import { ValidateResponse } from '@src/types/responses';
 
 export type Validated = {
   productId: ValidateUUID;
-  producerId: ValidateUUID;
   unitMeasureId: ValidateUUID;
   price: ValidateNumber;
   stock: ValidateNumber;
@@ -13,7 +12,6 @@ export type Validated = {
 
 export type Assert = {
   productIdOrError: Right<null, ValidateUUID>;
-  producerIdOrError: Right<null, ValidateUUID>;
   unitMeasureIdOrError: Right<null, ValidateUUID>;
   priceOrError: Right<null, ValidateNumber>;
   stockOrError: Right<null, ValidateNumber>;
@@ -21,7 +19,6 @@ export type Assert = {
 
 export type Set = {
   productIdOrError: ValidateResponse<ValidateUUID>;
-  producerIdOrError: ValidateResponse<ValidateUUID>;
   unitMeasureIdOrError: ValidateResponse<ValidateUUID>;
   priceOrError: ValidateResponse<ValidateNumber>;
   stockOrError: ValidateResponse<ValidateNumber>;
@@ -29,7 +26,6 @@ export type Set = {
 
 export type Errors = {
   productId: string;
-  producerId: string;
   unitMeasureId: string;
   price: string;
   stock: string;

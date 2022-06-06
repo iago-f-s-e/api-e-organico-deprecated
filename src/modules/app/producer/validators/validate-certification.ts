@@ -1,7 +1,8 @@
 import { BadRequestException } from '@nestjs/common';
 import { left, right } from '@src/modules/common/either';
-import { CertificationType, certificationType, ValidateResponse } from '@src/modules/common/types';
+import { ValidateResponse } from '@src/modules/common/types';
 import { OnError } from '@src/modules/common/validators/types';
+import { certificationType, CertificationType } from '@src/types/entities';
 
 export class ValidateCertification {
   private readonly data: CertificationType;
