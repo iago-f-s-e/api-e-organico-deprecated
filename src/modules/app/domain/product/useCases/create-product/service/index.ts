@@ -1,7 +1,7 @@
 import { ConflictException, Injectable } from '@nestjs/common';
-import { left, right } from '@src/modules/common/either';
-import { CreateResponse } from '@src/modules/common/types/responses';
 import { Product } from '@src/infra/database/entities';
+import { left, right } from '@src/shared/either';
+import { CreateResponse } from '@src/types/responses';
 import { UpdateResult } from 'typeorm';
 import { FindProductRepository } from '../../find-product/repository';
 import { UpdateProductRepository } from '../../update-product/repository';

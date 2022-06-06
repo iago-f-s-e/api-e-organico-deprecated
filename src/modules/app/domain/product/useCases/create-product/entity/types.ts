@@ -1,6 +1,6 @@
 import { ValidateString } from '@src/domain/validators';
-import { Right } from '@src/modules/common/either';
-import { ValidateResponse } from '@src/modules/common/types/responses';
+import { Right } from '@src/shared/either';
+import { ValidateResponse } from '@src/types/responses';
 
 export type Validated = {
   name: ValidateString;

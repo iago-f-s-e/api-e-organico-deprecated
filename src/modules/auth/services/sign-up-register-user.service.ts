@@ -3,9 +3,9 @@ import { LoggedUserDTO } from '@src/domain/dtos/auth';
 import { CreateUserDTO } from '@src/domain/dtos/user';
 import { userToClient } from '@src/domain/toClient';
 import { CreateUserUserCase } from '@src/modules/user/useCases';
-import { left, right } from '@src/modules/common/either';
 import { TokenService } from '@src/modules/common/services';
-import { CreateResponse } from '@src/modules/common/types/responses';
+import { CreateResponse } from '@src/types/responses';
+import { left, right } from '@src/shared/either';
 
 @Injectable()
 export class SignUpRegisterUserService {

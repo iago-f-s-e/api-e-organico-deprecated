@@ -1,8 +1,8 @@
 import { CreateProducerMarketDTO } from '@src/domain/dtos/producer-market';
 import { CreateProducerProductDTO } from '@src/domain/dtos/producer-product';
 import { ValidateCertification } from '@src/domain/validators';
-import { Right } from '@src/modules/common/either';
-import { ValidateResponse } from '@src/modules/common/types/responses';
+import { Right } from '@src/shared/either';
+import { ValidateResponse } from '@src/types/responses';
 
 export type Validated = {
   certificationType: ValidateCertification;

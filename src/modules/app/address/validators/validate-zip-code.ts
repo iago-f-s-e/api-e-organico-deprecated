@@ -1,7 +1,7 @@
 import { BadRequestException } from '@nestjs/common';
 import { OnError } from '@src/domain/validators/on-error';
-import { left, right } from '@src/modules/common/either';
-import { ValidateResponse } from '@src/modules/common/types';
+import { left, right } from '@src/shared/either';
+import { ValidateResponse } from '@src/types/responses';
 
 type Options = {
   maxSize: number;

@@ -2,8 +2,8 @@ import { ConflictException, Injectable } from '@nestjs/common';
 import { ReservePhoneDTO } from '@src/domain/dtos/auth/reserve-phone.dto';
 import { UserRepository } from '@src/infra/database/repositories/user.repository';
 import { RedisService } from '@src/infra/redis/services';
-import { left, right } from '@src/modules/common/either';
-import { CreateResponse } from '@src/modules/common/types';
+import { left, right } from '@src/shared/either';
+import { CreateResponse } from '@src/types/responses';
 
 @Injectable()
 export class ReserveUserPhone {

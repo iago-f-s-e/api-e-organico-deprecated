@@ -1,7 +1,7 @@
 import { maxSize, minSize } from '@src/domain/constants';
 import { ValidateNumber, ValidateString } from '@src/domain/validators';
 import { ToBeAssert } from '@src/domain/validators/on-error';
-import { ValidateResponse } from '@src/modules/common/types/responses';
+import { ValidateResponse } from '@src/types/responses';
 import { AddressDTO } from '../../../dtos';
 import { ValidateZipCode } from '../../../validators';
 import { UpdateAddressDTO } from '../dtos';
