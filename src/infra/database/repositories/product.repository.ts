@@ -5,10 +5,10 @@ import { Product } from '../entities';
 
 @Injectable()
 export class ProductRepository {
-  constructor(@InjectRepository(Product) private readonly market: Repository<Product>) {}
+  constructor(@InjectRepository(Product) private readonly product: Repository<Product>) {}
 
   public async findAll(): Promise<Product[]> {
-    return this.market.find({
+    return this.product.find({
       where: { isActive: true },
       order: {
         name: 'ASC',
