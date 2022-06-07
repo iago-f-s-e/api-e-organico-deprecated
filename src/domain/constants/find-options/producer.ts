@@ -4,6 +4,7 @@ import { FindManyOptions, IsNull, Not } from 'typeorm';
 
 const findAll: FindManyOptions<Producer> = {
   where: {
+    status: 'ACTIVE',
     user: {
       isActive: true,
       score: {

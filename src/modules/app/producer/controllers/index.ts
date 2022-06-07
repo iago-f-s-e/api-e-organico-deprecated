@@ -1,7 +1,7 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Param, ParseUUIDPipe } from '@nestjs/common';
 import { keys } from '@src/domain/constants';
 import { GetProducer, MinimalProducerToClient } from '@src/domain/dtos/producer';
-import { minimalProducerToClient } from '@src/domain/toClient';
+import { minimalProducerToClient, producerToClient } from '@src/domain/toClient';
 import { RedisService } from '@src/infra/redis/services';
 import { FindProducerUseCase } from '../useCases';
 
@@ -11,6 +11,15 @@ export class ProducerController {
     private readonly findUseCase: FindProducerUseCase,
     private readonly redisService: RedisService
   ) {}
+
+  @Get(':id')
+  public async getById(@Param('id', new ParseUUIDPipe({ version: '4' })) id: string): GetProducer {
+    const producer = await this.findUseCase.findById(id);
+
+    if (producer.isLeft()) throw producer.value;
+
+    return producerToClient(producer.value);
+  }
 
   @Get()
   public async findAllProducers(): GetProducer {

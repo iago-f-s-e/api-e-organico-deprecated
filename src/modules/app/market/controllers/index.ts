@@ -1,4 +1,4 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Param, ParseUUIDPipe } from '@nestjs/common';
 import { keys } from '@src/domain/constants';
 import { GetMarket, MinimalMarketToClient } from '@src/domain/dtos/market';
 import { marketToClient, minimalMarketToClient } from '@src/domain/toClient';
@@ -13,7 +13,7 @@ export class MarketController {
   ) {}
 
   @Get(':id')
-  public async getById(@Param('id') id: string): GetMarket {
+  public async getById(@Param('id', new ParseUUIDPipe({ version: '4' })) id: string): GetMarket {
     const market = await this.findUseCase.findById(id);
 
     if (market.isLeft()) throw market.value;

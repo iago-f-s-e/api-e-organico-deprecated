@@ -1,5 +1,5 @@
 import { AddressToClient } from '../address';
-import { ProducerToClient } from '../producer';
+import { ProducerMakeDelivery } from '../producer';
 
 export type UserToClient = {
   id: string;
@@ -8,5 +8,5 @@ export type UserToClient = {
   phone: string;
   email: string;
   address?: AddressToClient;
-  producer?: ProducerToClient;
+  producer?: ProducerMakeDelivery;
 };
