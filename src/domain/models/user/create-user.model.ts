@@ -2,6 +2,7 @@ import { maxSize, minSize } from '@src/domain/constants';
 import { CreateUserDTO, UserDTO } from '@src/domain/dtos/user';
 import { ValidateDocument, ValidateEmail, ValidateString } from '@src/domain/validators';
 import { ToBeAssert } from '@src/domain/validators/on-error';
+import { Score } from '@src/infra/database/entities';
 import { ValidateToCreateAddress } from '@src/modules/app/address/useCases/create-address/entity';
 import { ValidateResponse } from '@src/types/responses';
 import { CreateProducerModel } from '../app/producer';
@@ -105,7 +106,8 @@ export class CreateUserModel {
       password: validated.password.value,
       document: validated.document.value,
       address: validated.address,
-      producer: validated.producer
+      producer: validated.producer,
+      score: {} as unknown as Score
     };
   }
 

@@ -3,17 +3,19 @@ import { UserToClient } from '../dtos/user';
 import { addressToClient } from './address';
 import { producerToClient } from './producer';
 
-export function userToClient(data: User): UserToClient {
-  const isProducer = !!data.producer;
+type ToClient = (user: User) => UserToClient;
+
+export const userToClient: ToClient = user => {
+  const isProducer = !!user.producer;
   const userType = isProducer ? 'producer' : 'consumer';
 
   return {
-    id: data.id,
+    id: user.id,
     userType,
-    phone: data.phone,
-    email: data.email,
-    name: data.name,
-    producer: isProducer ? producerToClient(data.producer) : undefined,
-    address: data.address?.length ? addressToClient(data.address[0]) : undefined
+    phone: user.phone,
+    email: user.email,
+    name: user.name,
+    producer: isProducer ? producerToClient(user.producer) : undefined,
+    address: user.address?.length ? addressToClient(user.address[0]) : undefined
   };
-}
+};

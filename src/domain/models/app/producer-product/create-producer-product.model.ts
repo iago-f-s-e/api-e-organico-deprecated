@@ -1,6 +1,7 @@
 import { CreateProducerProductDTO, ProducerProductDTO } from '@src/domain/dtos/producer-product';
 import { ValidateNumber, ValidateUUID } from '@src/domain/validators';
 import { ToBeAssert } from '@src/domain/validators/on-error';
+import { Score } from '@src/infra/database/entities';
 import { ValidateResponse } from '@src/types/responses';
 import { Set, Assert, Errors, Validated } from './create-producer-product.type';
 
@@ -89,7 +90,8 @@ export class CreateProducerProductModel {
       unitMeasureId: validated.unitMeasureId.value,
       price: validated.price.value,
       stock: validated.stock.value,
-      harvestDate: validated.harvestDate
+      harvestDate: validated.harvestDate,
+      score: {} as unknown as Score
     };
   }
 
