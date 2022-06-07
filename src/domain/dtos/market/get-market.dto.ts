@@ -1,3 +1,3 @@
-import { MinimalMarketToClient } from './market-to-client.dto';
+import { MarketToClient, MinimalMarketToClient } from './market-to-client.dto';
 
-export type GetMarket = Promise<MinimalMarketToClient | MinimalMarketToClient[]>;
+export type GetMarket = Promise<MarketToClient | MinimalMarketToClient | MinimalMarketToClient[]>;

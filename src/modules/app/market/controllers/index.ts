@@ -1,7 +1,7 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 import { keys } from '@src/domain/constants';
 import { GetMarket, MinimalMarketToClient } from '@src/domain/dtos/market';
-import { minimalMarketToClient } from '@src/domain/toClient';
+import { marketToClient, minimalMarketToClient } from '@src/domain/toClient';
 import { RedisService } from '@src/infra/redis/services';
 import { FindMarketUseCase } from '../useCases';
 
@@ -11,6 +11,15 @@ export class MarketController {
     private readonly findUseCase: FindMarketUseCase,
     private readonly redisService: RedisService
   ) {}
+
+  @Get(':id')
+  public async getById(@Param('id') id: string): GetMarket {
+    const market = await this.findUseCase.findById(id);
+
+    if (market.isLeft()) throw market.value;
+
+    return marketToClient(market.value);
+  }
 
   @Get()
   public async getAll(): GetMarket {
