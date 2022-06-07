@@ -1,4 +1,5 @@
 export * from './address';
+export * from './producer-markets';
 export * from './producer-product';
 export * from './producer';
 export * from './product';

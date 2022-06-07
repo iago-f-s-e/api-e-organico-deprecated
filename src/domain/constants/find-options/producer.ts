@@ -1,4 +1,5 @@
 import { Producer } from '@src/infra/database/entities';
+import { FindProducerOptions } from '@src/types/entities';
 import { FindManyOptions, IsNull, Not } from 'typeorm';
 
 const findAll: FindManyOptions<Producer> = {
@@ -36,6 +37,6 @@ const findAll: FindManyOptions<Producer> = {
   }
 };
 
-export const producer = {
+export const producer: FindProducerOptions = {
   FIND_ALL: findAll
 };
