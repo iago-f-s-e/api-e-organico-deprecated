@@ -1,3 +1,5 @@
+import { UnitMeasureToClient } from '../unit-measure';
+
 export type MinimalProducerProductToClient = {
   id: string;
   image: string;
@@ -5,5 +7,14 @@ export type MinimalProducerProductToClient = {
   price: number;
   unitMeasure: {
     name: string;
+  };
+};
+
+export type ProducerProductToClient = MinimalProducerProductToClient & {
+  unitMeasure: UnitMeasureToClient;
+  stock: number;
+  harvestDate: string;
+  score: {
+    transactions: number;
   };
 };

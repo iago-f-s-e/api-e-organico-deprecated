@@ -13,4 +13,30 @@ export class ProducerProductRepository {
   public insert(data: CreateProducerProductDTO): Promise<ProducerProduct> {
     return this.producerProduct.save(this.producerProduct.create(data));
   }
+
+  public findById(id: string): Promise<ProducerProduct[]> {
+    return this.producerProduct.find({
+      where: {
+        id,
+        isActive: true
+      },
+      select: {
+        id: true,
+        harvestDate: true,
+        price: true,
+        stock: true,
+        score: {
+          transactions: true
+        },
+        product: {
+          name: true
+        }
+      },
+      relations: {
+        product: true,
+        score: true,
+        unitMeasure: true
+      }
+    });
+  }
 }

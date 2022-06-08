@@ -1,6 +1,8 @@
 import { ProducerProduct } from '@src/infra/database/entities';
-import { MinimalProducerProductToClient } from '../dtos/producer-product';
+import { unitMeasureToClient } from '@src/modules/app/domain/unit-measure/helpers';
+import { MinimalProducerProductToClient, ProducerProductToClient } from '../dtos/producer-product';
 
+type ToClient = (producerProduct: ProducerProduct) => ProducerProductToClient;
 type MinimalToClient = (producerProduct: ProducerProduct) => MinimalProducerProductToClient;
 
 const defaultImage =
@@ -14,4 +16,17 @@ export const minimalProducerProductToClient: MinimalToClient = producerProduct =
   unitMeasure: {
     name: producerProduct.unitMeasure.name
   }
+});
+
+export const producerProductToClient: ToClient = producerProduct => ({
+  id: producerProduct.id,
+  image: defaultImage,
+  name: producerProduct.product.name,
+  price: producerProduct.price,
+  unitMeasure: unitMeasureToClient(producerProduct.unitMeasure),
+  score: {
+    transactions: producerProduct.score.transactions
+  },
+  stock: producerProduct.stock,
+  harvestDate: new Intl.DateTimeFormat('pt-BR').format(new Date(producerProduct.harvestDate))
 });

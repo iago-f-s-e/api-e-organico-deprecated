@@ -9,7 +9,8 @@ const useCases = Object.values(UseCases);
 @Module({
   imports: [InfraModule],
   controllers: [ProducerProductController],
-  providers: [...useCases]
+  exports: useCases,
+  providers: useCases
 })
 export class ProducerProductModule {}
 
