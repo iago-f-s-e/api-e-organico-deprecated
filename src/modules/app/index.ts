@@ -5,6 +5,7 @@ import { marketChildren, MarketModule } from './market';
 import { producerChildren, ProducerModule } from './producer';
 import { producerProductChildren, ProducerProductModule } from './producer-product';
 import { productChildren, ProductModule } from './product';
+import { transactionChildren, TransactionModule } from './transaction';
 import { unitMeasureChildren, UnitMeasureModule } from './unit-measure';
 
 @Module({
@@ -14,7 +15,8 @@ import { unitMeasureChildren, UnitMeasureModule } from './unit-measure';
     MarketModule,
     ProductModule,
     UnitMeasureModule,
-    ProducerModule
+    ProducerModule,
+    TransactionModule
   ]
 })
 export class AppModule {}
@@ -28,6 +30,7 @@ export const appPrefix: RouteTree = {
     marketChildren,
     productChildren,
     unitMeasureChildren,
-    producerChildren
+    producerChildren,
+    transactionChildren
   ]
 };

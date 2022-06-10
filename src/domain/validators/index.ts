@@ -4,3 +4,4 @@ export * from './validate-email';
 export * from './validate-number';
 export * from './validate-string';
 export * from './validate-uuid';
+export * from './validate-transaction-type';

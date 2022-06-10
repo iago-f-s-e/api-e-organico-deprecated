@@ -41,7 +41,7 @@ export class Transaction extends BaseEntity {
   public readonly marketId: string | Nil;
 
   @Column({ type: 'uuid', name: 'address_id', nullable: true })
-  public readonly addressId: Address | Nil;
+  public readonly addressId: string | Nil;
 
   @Column({ type: 'float' })
   public readonly total!: number;
@@ -54,7 +54,7 @@ export class Transaction extends BaseEntity {
   public readonly type!: TransactionType;
 
   @Index('IDX_transaction_status', { unique: false })
-  @Column({ type: 'varchar' })
+  @Column({ type: 'varchar', default: 'waiting-for-confirmation-from-the-producer' })
   public readonly status!: TransactionStatus;
 
   @Column({ type: 'varchar', nullable: true })

@@ -1,6 +1,9 @@
 import { User } from '../entities';
 
-export const userFixtures: Omit<User, 'isActive' | 'address' | 'producer' | 'score'>[] = [
+export const userFixtures: Omit<
+  User,
+  'isActive' | 'address' | 'producer' | 'score' | 'transactions'
+>[] = [
   {
     id: '90baed0b-6c04-401a-92d7-94641228d008',
     email: 'produtor@outlook.com',

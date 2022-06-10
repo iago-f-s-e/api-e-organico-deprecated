@@ -1,7 +1,7 @@
 import { MigrationInterface, QueryRunner } from "typeorm";
 
-export class Transaction1654885672721 implements MigrationInterface {
-    name = 'Transaction1654885672721'
+export class Transaction1654888373853 implements MigrationInterface {
+    name = 'Transaction1654888373853'
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(`
@@ -21,6 +21,7 @@ export class Transaction1654885672721 implements MigrationInterface {
                 "transaction_id" uuid NOT NULL,
                 "producer_product_id" uuid NOT NULL,
                 "quantity" double precision NOT NULL,
+                "total" double precision NOT NULL,
                 CONSTRAINT "PK_ce04430a66074435ace998a1c88" PRIMARY KEY ("transaction_product_id")
             )
         `);
@@ -36,7 +37,7 @@ export class Transaction1654885672721 implements MigrationInterface {
                 "total" double precision NOT NULL,
                 "product_quantity" integer NOT NULL,
                 "type" character varying NOT NULL,
-                "status" character varying NOT NULL,
+                "status" character varying NOT NULL DEFAULT 'waiting-for-confirmation-from-the-producer',
                 "description" character varying,
                 "observation" character varying,
                 "created_at" TIMESTAMP NOT NULL DEFAULT 'now()',

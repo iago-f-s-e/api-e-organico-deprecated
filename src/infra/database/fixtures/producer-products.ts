@@ -2,7 +2,7 @@ import { ProducerProduct } from '../entities';
 
 export const producerProductFixtures: Omit<
   ProducerProduct,
-  'isActive' | 'unitMeasure' | 'product' | 'producer' | 'score'
+  'isActive' | 'unitMeasure' | 'product' | 'producer' | 'score' | 'transactionProducts'
 >[] = [
   {
     id: '1583e0da-37f4-4303-a28a-c75aa4535323',

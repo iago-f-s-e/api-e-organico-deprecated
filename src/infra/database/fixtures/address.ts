@@ -1,6 +1,6 @@
 import { Address } from '../entities';
 
-export const addressFixtures: Omit<Address, 'user' | 'market' | 'property'>[] = [
+export const addressFixtures: Omit<Address, 'user' | 'market' | 'property' | 'transactions'>[] = [
   {
     id: 'ae8d5bb5-b314-4da1-8afe-65f0a1f550c7',
     userId: '90baed0b-6c04-401a-92d7-94641228d008',

@@ -1,6 +1,6 @@
 import { Workday } from '../entities';
 
-export const workdayFixtures: Omit<Workday, 'market' | 'isActive'>[] = [
+export const workdayFixtures: Omit<Workday, 'market' | 'isActive' | 'transactions'>[] = [
   {
     id: '5a3ae7c6-0588-4550-9af0-48786893a912',
     marketId: '66ac5b51-8b01-4a70-8472-00f863c0acf4',

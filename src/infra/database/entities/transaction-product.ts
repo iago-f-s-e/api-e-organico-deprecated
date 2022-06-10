@@ -17,6 +17,9 @@ export class TransactionProduct extends BaseEntity {
   @Column({ type: 'float' })
   public readonly quantity!: number;
 
+  @Column({ type: 'float' })
+  public readonly total!: number;
+
   @ManyToOne(() => Transaction, transaction => transaction.transactionProducts, {
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE'
