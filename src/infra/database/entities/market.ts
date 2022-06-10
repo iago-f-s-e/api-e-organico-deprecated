@@ -4,6 +4,7 @@ import { Workday } from './workday';
 import { Address } from './address';
 import { ProducerMarket } from './producer-markets';
 import { Score } from './score';
+import { Transaction } from './transaction';
 
 @Entity('market')
 export class Market extends BaseEntity {
@@ -22,6 +23,9 @@ export class Market extends BaseEntity {
 
   @OneToMany(() => ProducerMarket, producerMarkets => producerMarkets.market)
   public readonly producerMarkets!: ProducerMarket[];
+
+  @OneToMany(() => Transaction, transactions => transactions.market)
+  public readonly transactions!: Transaction[];
 
   @OneToOne(() => Address, address => address.market, { cascade: true })
   public readonly address!: Address;

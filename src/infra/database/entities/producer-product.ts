@@ -1,8 +1,18 @@
-import { Column, Entity, Index, JoinColumn, ManyToOne, OneToOne, PrimaryColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  Index,
+  JoinColumn,
+  ManyToOne,
+  OneToMany,
+  OneToOne,
+  PrimaryColumn
+} from 'typeorm';
 import { BaseEntity } from './base-entity';
 import { Producer } from './producer';
 import { Product } from './product';
 import { Score } from './score';
+import { TransactionProduct } from './transaction-product';
 import { UnitMeasure } from './unit-measure';
 
 @Entity('producer_product')
@@ -55,4 +65,7 @@ export class ProducerProduct extends BaseEntity {
 
   @OneToOne(() => Score, score => score.producerProduct, { cascade: true })
   public readonly score!: Score;
+
+  @OneToMany(() => TransactionProduct, transactionProducts => transactionProducts.producerProduct)
+  public readonly transactionProducts!: TransactionProduct[];
 }

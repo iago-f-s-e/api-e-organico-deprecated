@@ -1,9 +1,19 @@
-import { Column, Entity, Index, JoinColumn, ManyToOne, OneToOne, PrimaryColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  Index,
+  JoinColumn,
+  ManyToOne,
+  OneToMany,
+  OneToOne,
+  PrimaryColumn
+} from 'typeorm';
 import { BaseEntity } from './base-entity';
 import { User } from './user';
 import { maxSize } from '@src/domain/constants';
 import { Market } from './market';
 import { Property } from './property';
+import { Transaction } from './transaction';
 
 @Entity('address')
 export class Address extends BaseEntity {
@@ -49,6 +59,9 @@ export class Address extends BaseEntity {
   @OneToOne(() => Market, market => market.address, { onDelete: 'CASCADE', onUpdate: 'CASCADE' })
   @JoinColumn({ name: 'market_id', referencedColumnName: 'id' })
   public readonly market!: Market;
+
+  @OneToMany(() => Transaction, transaction => transaction.address)
+  public readonly transactions!: Transaction[];
 
   @OneToOne(() => Property, property => property.address, {
     onDelete: 'CASCADE',

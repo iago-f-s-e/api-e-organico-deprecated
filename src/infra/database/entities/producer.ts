@@ -3,6 +3,7 @@ import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryColumn } from '
 import { ProducerMarket } from './producer-markets';
 import { ProducerProduct } from './producer-product';
 import { Property } from './property';
+import { Transaction } from './transaction';
 import { User } from './user';
 
 @Entity('producer')
@@ -35,4 +36,7 @@ export class Producer {
 
   @OneToMany(() => Property, properties => properties.producer)
   public readonly properties!: Property[];
+
+  @OneToMany(() => Transaction, transactions => transactions.producer)
+  public readonly transactions!: Transaction[];
 }

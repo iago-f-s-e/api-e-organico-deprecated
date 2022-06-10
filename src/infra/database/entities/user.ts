@@ -4,6 +4,7 @@ import { Address } from './address';
 import { BaseEntity } from './base-entity';
 import { Producer } from './producer';
 import { Score } from './score';
+import { Transaction } from './transaction';
 
 @Entity('user')
 @Index('IDX_user_phone_email_document', ['phone', 'email', 'document'], { unique: true })
@@ -41,6 +42,9 @@ export class User extends BaseEntity {
 
   @OneToMany(() => Address, address => address.user, { cascade: true })
   public readonly address!: Address[];
+
+  @OneToMany(() => Transaction, transactions => transactions.consumer)
+  public readonly transactions!: Transaction[];
 
   @OneToOne(() => Producer, producer => producer.user, { cascade: true })
   public readonly producer!: Producer;

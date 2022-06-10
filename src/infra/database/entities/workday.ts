@@ -1,7 +1,8 @@
 import { Weekday } from '@src/types/entities';
-import { Column, Entity, Index, JoinColumn, ManyToOne, PrimaryColumn } from 'typeorm';
+import { Column, Entity, Index, JoinColumn, ManyToOne, OneToMany, PrimaryColumn } from 'typeorm';
 import { BaseEntity } from './base-entity';
 import { Market } from './market';
+import { Transaction } from './transaction';
 
 @Entity('workday')
 @Index('IDX_market_weekday', ['marketId', 'weekday'], { unique: true })
@@ -28,4 +29,7 @@ export class Workday extends BaseEntity {
   @ManyToOne(() => Market, market => market.workdays, { onDelete: 'CASCADE', onUpdate: 'CASCADE' })
   @JoinColumn({ name: 'market_id', referencedColumnName: 'id' })
   public readonly market!: Market;
+
+  @OneToMany(() => Transaction, transaction => transaction.selectedDay)
+  public readonly transactions!: Transaction[];
 }
