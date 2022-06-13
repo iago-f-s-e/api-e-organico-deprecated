@@ -1,5 +1,4 @@
 import { AddressDTO } from '@src/modules/app/address/dtos';
-import { ProducerPropDTO } from '../producer';
 
 export type ConsumerDTO = {
   type: 'consumer';
