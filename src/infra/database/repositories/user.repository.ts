@@ -12,6 +12,36 @@ export class UserRepository {
     return this.user.save(this.user.create(data));
   }
 
+  public findByEmail(email: string): Promise<User[]> {
+    return this.user.find({
+      where: { email },
+      select: {
+        id: true,
+        name: true,
+        phone: true,
+        email: true,
+        password: true,
+        address: {
+          id: true,
+          city: true,
+          complement: true,
+          district: true,
+          number: true,
+          state: true,
+          street: true,
+          zipCode: true
+        },
+        producer: {
+          makeDelivery: true
+        }
+      },
+      relations: {
+        address: true,
+        producer: true
+      }
+    });
+  }
+
   public existingByDocument(document: string): Promise<User | null> {
     return this.user.findOne({
       where: { document },

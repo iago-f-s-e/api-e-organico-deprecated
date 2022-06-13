@@ -1,4 +1,5 @@
 export const enum EntryPoints {
   APP = 'app',
-  PRODUCER = 'app/producer'
+  PRODUCER = 'app/producer',
+  TRANSACTION = 'app/transaction'
 }
