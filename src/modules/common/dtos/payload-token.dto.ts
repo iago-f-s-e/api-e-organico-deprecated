@@ -1,3 +1,3 @@
-export type PayloadTokenDTO = {
+export type PayloadToken = {
   id: string;
 };
