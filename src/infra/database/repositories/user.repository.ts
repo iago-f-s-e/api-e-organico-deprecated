@@ -12,9 +12,9 @@ export class UserRepository {
     return this.user.save(this.user.create(data));
   }
 
-  public findByEmail(email: string): Promise<User[]> {
+  public findByPhone(phone: string): Promise<User[]> {
     return this.user.find({
-      where: { email },
+      where: { phone },
       select: {
         id: true,
         name: true,

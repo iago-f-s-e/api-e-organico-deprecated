@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { RouteTree } from '@nestjs/core';
 import { domainChildren, DomainModule } from './domain';
 import { marketChildren, MarketModule } from './market';
+import { paymentChildren, PaymentModule } from './payment';
 import { producerChildren, ProducerModule } from './producer';
 import { producerProductChildren, ProducerProductModule } from './producer-product';
 import { productChildren, ProductModule } from './product';
@@ -16,7 +17,8 @@ import { unitMeasureChildren, UnitMeasureModule } from './unit-measure';
     ProductModule,
     UnitMeasureModule,
     ProducerModule,
-    TransactionModule
+    TransactionModule,
+    PaymentModule
   ]
 })
 export class AppModule {}
@@ -31,6 +33,7 @@ export const appPrefix: RouteTree = {
     productChildren,
     unitMeasureChildren,
     producerChildren,
-    transactionChildren
+    transactionChildren,
+    paymentChildren
   ]
 };

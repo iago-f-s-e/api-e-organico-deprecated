@@ -8,8 +8,8 @@ import { FindResponse } from '@src/types/responses';
 export class FindUserUserCase {
   constructor(private readonly repository: UserRepository) {}
 
-  public async byEmail(email: string): FindResponse<User> {
-    const [user] = await this.repository.findByEmail(email);
+  public async byPhone(phone: string): FindResponse<User> {
+    const [user] = await this.repository.findByPhone(phone);
 
     if (!user) return left(new NotFoundException('User not found'));
 

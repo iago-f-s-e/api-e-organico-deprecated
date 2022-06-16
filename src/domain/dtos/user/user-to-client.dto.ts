@@ -7,6 +7,7 @@ export type UserToClient = {
   name: string;
   phone: string;
   email: string;
+  image: string;
   address?: AddressToClient;
   producer?: ProducerMakeDelivery;
 };

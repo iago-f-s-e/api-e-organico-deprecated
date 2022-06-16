@@ -1,19 +1,23 @@
 import { MigrationInterface, QueryRunner } from "typeorm";
 
-export class Transaction1654888373853 implements MigrationInterface {
-    name = 'Transaction1654888373853'
+export class Transaction1655140076182 implements MigrationInterface {
+    name = 'Transaction1655140076182'
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(`
             CREATE TABLE "payment" (
                 "payment_id" uuid NOT NULL,
                 "name" character varying NOT NULL,
+                "type" character varying NOT NULL DEFAULT 'in-person',
                 CONSTRAINT "UQ_06a96865bf0d5a224c8dc13c653" UNIQUE ("name"),
                 CONSTRAINT "PK_9fff60ac6ac1844ea4e0cfba67a" PRIMARY KEY ("payment_id")
             )
         `);
         await queryRunner.query(`
             CREATE UNIQUE INDEX "IDX_payment_name" ON "payment" ("name")
+        `);
+        await queryRunner.query(`
+            CREATE INDEX "IDX_payment_type" ON "payment" ("type")
         `);
         await queryRunner.query(`
             CREATE TABLE "transaction-product" (
@@ -121,6 +125,9 @@ export class Transaction1654888373853 implements MigrationInterface {
         `);
         await queryRunner.query(`
             DROP TABLE "transaction-product"
+        `);
+        await queryRunner.query(`
+            DROP INDEX "public"."IDX_payment_type"
         `);
         await queryRunner.query(`
             DROP INDEX "public"."IDX_payment_name"

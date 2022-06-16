@@ -10,7 +10,6 @@ type Information = {
 
 export type TransactionDTO = {
   id: string;
-  status: string;
   total: string;
   productQuantity: string;
   producer: { id: string };

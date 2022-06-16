@@ -1,3 +1,4 @@
+import { PaymentType } from '@src/types/entities';
 import { Column, Entity, Index, OneToMany, PrimaryColumn } from 'typeorm';
 import { BaseEntity } from './base-entity';
 import { Transaction } from './transaction';
@@ -10,6 +11,10 @@ export class Payment extends BaseEntity {
   @Index('IDX_payment_name', { unique: true })
   @Column({ type: 'varchar', unique: true })
   public readonly name!: string;
+
+  @Index('IDX_payment_type', { unique: false })
+  @Column({ type: 'varchar', default: 'in-person' })
+  public readonly type!: PaymentType;
 
   @OneToMany(() => Transaction, transactions => transactions.payment)
   public readonly transactions!: Transaction[];

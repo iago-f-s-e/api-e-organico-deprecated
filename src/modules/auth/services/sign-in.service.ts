@@ -15,7 +15,7 @@ export class SignInService {
   ) {}
 
   public async exec(data: CredentialsDTO): Promise<AuthResponse<LoggedUserDTO>> {
-    const userOrError = await this.findUserUseCase.byEmail(data.email);
+    const userOrError = await this.findUserUseCase.byPhone(data.phone);
 
     if (userOrError.isLeft()) return left(new UnauthorizedException());
 
