@@ -23,7 +23,8 @@ export class TokenService {
       const verified = this.jwtService.verify<PayloadToken>(token);
 
       const payload: PayloadToken = {
-        id: verified.id
+        id: verified.id,
+        userType: verified.userType
       };
 
       return right(payload);

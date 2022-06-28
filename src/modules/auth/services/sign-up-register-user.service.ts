@@ -20,7 +20,7 @@ export class SignUpRegisterUserService {
     if (createOrError.isLeft()) return left(createOrError.value);
 
     const user = userToClient(createOrError.value);
-    const token = this.tokenService.generate({ id: user.id });
+    const token = this.tokenService.generate({ id: user.id, userType: user.userType });
 
     return right({ token, user });
   }

@@ -3,7 +3,6 @@ export type TransactionType = 'pick' | 'delivery';
 export type TransactionStatus =
   | 'delivered'
   | 'en-route'
-  | 'paid-online'
   | 'canceled-by-producer'
   | 'canceled-by-consumer'
   | 'confirmed-by-producer'

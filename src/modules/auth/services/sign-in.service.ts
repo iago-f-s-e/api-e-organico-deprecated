@@ -24,7 +24,7 @@ export class SignInService {
     if (!isMatch) return left(new UnauthorizedException());
 
     const user = userToClient(userOrError.value);
-    const token = this.tokenService.generate({ id: user.id });
+    const token = this.tokenService.generate({ id: user.id, userType: user.userType });
 
     return right({ token, user });
   }
