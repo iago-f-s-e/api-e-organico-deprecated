@@ -1,27 +1,9 @@
-import { Workday } from '@src/infra/database/entities';
-import { TransactionStatus, TransactionType } from '@src/types/entities';
-import { AddressToClient } from '../address';
-import { MinimalConsumerToClient } from '../consumer';
-import { MinimalMarketToClient } from '../market';
+import { TransactionStatus, TransactionType, Weekday } from '@src/types/entities';
 import { PaymentToClient } from '../payment';
-import { MinimalProducerToClient } from '../producer';
+import { TransactionProductToClient } from '../transaction-product';
+import { UserToClient } from '../user';
 
-export type MinimalTransactionToClient = {
-  id: string;
-  producer?: MinimalProducerToClient;
-  consumer?: MinimalConsumerToClient;
-  total: number;
-  productQuantity: number;
-  payment: PaymentToClient;
-  information: {
-    type: TransactionType;
-    market?: MinimalMarketToClient;
-    selectedDay?: Workday;
-    address?: AddressToClient;
-  };
-};
-
-export type MinimalConsumerTransactionToClient = {
+export type MutualTransactionToClient = {
   id: string;
   total: number;
   productQuantity: number;
@@ -31,12 +13,34 @@ export type MinimalConsumerTransactionToClient = {
     id: string;
     name: string;
   };
-  producer: {
-    id: string;
-    name: string;
-  };
   payment: {
     id: string;
     name: string;
   };
+};
+
+export type MinimalConsumerTransactionToClient = MutualTransactionToClient & {
+  producer: {
+    id: string;
+    name: string;
+  };
+};
+
+export type MinimalProducerTransactionToClient = MutualTransactionToClient & {
+  number: number;
+  createdAt: Date;
+  selectedDay: {
+    id: string;
+    weekday: Weekday;
+  };
+  consumer: {
+    id: string;
+    name: string;
+  };
+};
+
+export type ProducerTransactionToClient = MinimalProducerTransactionToClient & {
+  consumer: UserToClient;
+  products: TransactionProductToClient[];
+  payment: PaymentToClient;
 };

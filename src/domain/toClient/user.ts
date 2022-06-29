@@ -20,6 +20,12 @@ export const userToClient: ToClient = user => {
     name: user.name,
     image: defaultImage,
     producer: isProducer ? producerMakeDeliveryToClient(user.producer) : undefined,
-    address: user.address?.length ? addressToClient(user.address[0]) : undefined
+    address: user.address?.length ? addressToClient(user.address[0]) : undefined,
+    score: user.score
+      ? {
+          rating: user.score.rating,
+          transactions: user.score.transactions
+        }
+      : undefined
   };
 };

@@ -25,6 +25,10 @@ export class Transaction extends BaseEntity {
   @PrimaryColumn({ type: 'uuid', name: 'transaction_id' })
   public readonly id!: string;
 
+  @Index('IDX_transaction_number', { unique: true })
+  @Column({ type: 'bigint', generated: 'increment' })
+  public readonly number!: number;
+
   @Column({ type: 'uuid', name: 'consumer_id' })
   public readonly consumerId!: string;
 
@@ -63,10 +67,10 @@ export class Transaction extends BaseEntity {
   @Column({ type: 'varchar', nullable: true })
   public readonly observation: string | Nil;
 
-  @CreateDateColumn({ type: 'timestamp', name: 'created_at', default: 'now()' })
+  @CreateDateColumn({ type: 'timestamp', name: 'created_at' })
   public readonly createdAt!: Date;
 
-  @UpdateDateColumn({ type: 'timestamp', name: 'updated_at', default: 'now()' })
+  @UpdateDateColumn({ type: 'timestamp', name: 'updated_at' })
   public readonly updatedAt!: Date;
 
   @ManyToOne(() => User, consumer => consumer.transactions, {

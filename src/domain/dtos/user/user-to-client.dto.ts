@@ -11,4 +11,8 @@ export type UserToClient = {
   image: string;
   address?: AddressToClient;
   producer?: ProducerMakeDelivery;
+  score?: {
+    transactions: number;
+    rating: number;
+  };
 };

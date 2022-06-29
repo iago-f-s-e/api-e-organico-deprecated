@@ -1,7 +1,7 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, ParseUUIDPipe, Post } from '@nestjs/common';
 import { GetTransaction, TransactionDTO } from '@src/domain/dtos/transaction';
 import { CreateTransactionModel } from '@src/domain/models/app/transaction';
-import { minimalTransactionToClient } from '@src/domain/toClient';
+import { minimalTransactionToClient, transactionToClient } from '@src/domain/toClient';
 import { Transaction } from '@src/infra/database/entities';
 import { Current } from '@src/modules/common/guard';
 import { CurrentUser } from '@src/types/global';
@@ -25,9 +25,21 @@ export class TransactionController {
   }
 
   @Get('in-progress')
-  public async findInProgress(@Current() current: CurrentUser): GetTransaction {
+  public async getInProgress(@Current() current: CurrentUser): GetTransaction {
     return (await this.findUseCase.findInProgress(current)).map(transaction =>
-      minimalTransactionToClient(transaction)
+      minimalTransactionToClient(transaction, current)
     );
+  }
+
+  @Get(':id')
+  public async getById(
+    @Param('id', new ParseUUIDPipe({ version: '4' })) id: string,
+    @Current() current: CurrentUser
+  ): GetTransaction {
+    const transaction = await this.findUseCase.findById(id, current);
+
+    if (transaction.isLeft()) throw transaction.value;
+
+    return transactionToClient(transaction.value, current);
   }
 }

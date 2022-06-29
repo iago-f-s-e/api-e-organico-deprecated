@@ -4,3 +4,4 @@ export * from './unit-measure';
 export * from './user';
 export * from './producer';
 export * from './transaction';
+export * from './payment';

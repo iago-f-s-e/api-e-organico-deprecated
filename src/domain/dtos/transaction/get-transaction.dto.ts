@@ -1,3 +1,10 @@
-import { MinimalConsumerTransactionToClient } from './transaction-to-client.dto';
+import {
+  MinimalConsumerTransactionToClient,
+  MinimalProducerTransactionToClient,
+  ProducerTransactionToClient
+} from './transaction-to-client.dto';
 
-export type GetTransaction = Promise<MinimalConsumerTransactionToClient[]>;
+export type GetTransaction = Promise<
+  | Array<MinimalConsumerTransactionToClient | MinimalProducerTransactionToClient>
+  | ProducerTransactionToClient
+>;
