@@ -55,6 +55,14 @@ export class TransactionController {
       minimalTransactionToClient(transaction, current)
     );
   }
+
+  @Get('concluded')
+  public async getConcluded(@Current() current: CurrentUser): GetTransaction {
+    return (await this.findUseCase.findConcluded(current)).map(transaction =>
+      minimalTransactionToClient(transaction, current)
+    );
+  }
+
   @Get(':id')
   public async getById(
     @Param('id', new ParseUUIDPipe({ version: '4' })) id: string,
@@ -89,5 +97,14 @@ export class TransactionController {
   @HttpCode(HttpStatus.NO_CONTENT)
   public separate(@Param('id', new ParseUUIDPipe({ version: '4' })) id: string): void {
     return this.updateUseCase.separate(id);
+  }
+
+  @Patch(':id/deliver')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  public deliver(
+    @Param('id', new ParseUUIDPipe({ version: '4' })) id: string,
+    @Current() current: CurrentUser
+  ): void {
+    return this.updateUseCase.deliver(id, current);
   }
 }

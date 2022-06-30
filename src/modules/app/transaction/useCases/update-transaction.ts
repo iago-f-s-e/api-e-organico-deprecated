@@ -14,6 +14,10 @@ export class UpdateTransactionUseCase {
     this.repository.updateStatus(id, 'canceled-by-producer').catch(err => console.error(err));
   }
 
+  private deliverTransactionByProducer(id: string): void {
+    this.repository.updateStatus(id, 'confirmed-by-producer').catch(err => console.error(err));
+  }
+
   public confirm(id: string, _: CurrentUser): void {
     return this.confirmTransactionByProducer(id);
   }
@@ -26,5 +30,9 @@ export class UpdateTransactionUseCase {
     this.repository
       .updateStatus(id, 'waiting-for-consumer-to-withdraw')
       .catch(err => console.error(err));
+  }
+
+  public deliver(id: string, _: CurrentUser): void {
+    return this.deliverTransactionByProducer(id);
   }
 }

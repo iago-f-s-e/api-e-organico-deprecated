@@ -27,7 +27,7 @@
     "max-depth": ["warn", 3],
     "no-restricted-imports": "error",
     "linebreak-style": ["error", "unix"],
-    "max-lines": ["error", 300],
+    "max-lines": ["error", 1000],
     "max-len": ["error", 130, 2, {
       "ignorePattern": "^(import|export)",
       "ignoreUrls": true

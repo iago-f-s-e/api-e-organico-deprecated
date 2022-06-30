@@ -24,6 +24,12 @@ export class FindTransactionUseCase {
     return this.repository.findProducerTransactionInProgress(current.id);
   }
 
+  public findConcluded(current: CurrentUser): Promise<Transaction[]> {
+    if (current.userType === 'consumer') return Promise.resolve([]);
+
+    return this.repository.findProducerTransactionConcluded(current.id);
+  }
+
   public findPending(current: CurrentUser): Promise<Transaction[]> {
     if (current.userType === 'consumer') return Promise.resolve([]);
 
@@ -38,7 +44,6 @@ export class FindTransactionUseCase {
 
     return this.repository.findProducerTransactionByStatus(current.id, 'in-separation');
   }
-
   public findById(id: string, _: CurrentUser): FindResponse<Transaction> {
     return this.producerTransactionById(id);
   }

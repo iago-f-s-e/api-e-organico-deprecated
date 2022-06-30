@@ -161,7 +161,60 @@ export class TransactionRepository {
     return this.transaction.find({
       where: {
         producerId,
-        status: Not(In(['delivered', 'canceled-by-producer', 'canceled-by-consumer']))
+        status: In(['waiting-for-payment', 'en-route', 'waiting-for-consumer-to-withdraw'])
+      },
+
+      select: {
+        id: true,
+        total: true,
+        productQuantity: true,
+        type: true,
+        status: true,
+        number: true,
+        createdAt: true,
+        payment: {
+          id: true,
+          name: true
+        },
+        market: {
+          id: true,
+          name: true
+        },
+        consumer: {
+          id: true,
+          name: true
+        },
+        selectedDay: {
+          id: true,
+          weekday: true
+        }
+      },
+
+      relations: {
+        market: true,
+        payment: true,
+        consumer: true,
+        selectedDay: true
+      },
+
+      order: {
+        updatedAt: 'DESC'
+      }
+    });
+  }
+
+  public async findProducerTransactionConcluded(producerId: string): Promise<Transaction[]> {
+    return this.transaction.find({
+      where: {
+        producerId,
+        status: Not(
+          In([
+            'confirmed-by-consumer',
+            'in-separation',
+            'waiting-for-confirmation-from-the-producer',
+            'waiting-for-consumer-to-withdraw'
+          ])
+        )
       },
 
       select: {
