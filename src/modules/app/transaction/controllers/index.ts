@@ -1,17 +1,28 @@
-import { Body, Controller, Get, Param, ParseUUIDPipe, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Param,
+  ParseUUIDPipe,
+  Patch,
+  Post
+} from '@nestjs/common';
 import { GetTransaction, TransactionDTO } from '@src/domain/dtos/transaction';
 import { CreateTransactionModel } from '@src/domain/models/app/transaction';
 import { minimalTransactionToClient, transactionToClient } from '@src/domain/toClient';
 import { Transaction } from '@src/infra/database/entities';
 import { Current } from '@src/modules/common/guard';
 import { CurrentUser } from '@src/types/global';
-import { CreateTransactionUseCase, FindTransactionUseCase } from '../useCases';
+import * as UseCases from '../useCases';
 
 @Controller()
 export class TransactionController {
   constructor(
-    private readonly createUseCase: CreateTransactionUseCase,
-    private readonly findUseCase: FindTransactionUseCase
+    private readonly createUseCase: UseCases.CreateTransactionUseCase,
+    private readonly findUseCase: UseCases.FindTransactionUseCase,
+    private readonly updateUseCase: UseCases.UpdateTransactionUseCase
   ) {}
 
   @Post()
@@ -31,6 +42,13 @@ export class TransactionController {
     );
   }
 
+  @Get('pending')
+  public async getPending(@Current() current: CurrentUser): GetTransaction {
+    return (await this.findUseCase.findPending(current)).map(transaction =>
+      minimalTransactionToClient(transaction, current)
+    );
+  }
+
   @Get(':id')
   public async getById(
     @Param('id', new ParseUUIDPipe({ version: '4' })) id: string,
@@ -41,5 +59,23 @@ export class TransactionController {
     if (transaction.isLeft()) throw transaction.value;
 
     return transactionToClient(transaction.value, current);
+  }
+
+  @Patch(':id/confirm')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  public confirm(
+    @Param('id', new ParseUUIDPipe({ version: '4' })) id: string,
+    @Current() current: CurrentUser
+  ): void {
+    return this.updateUseCase.confirm(id, current);
+  }
+
+  @Patch(':id/cancel')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  public cancel(
+    @Param('id', new ParseUUIDPipe({ version: '4' })) id: string,
+    @Current() current: CurrentUser
+  ): void {
+    return this.updateUseCase.cancel(id, current);
   }
 }

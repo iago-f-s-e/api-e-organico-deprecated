@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateTransactionDTO } from '@src/domain/dtos/transaction';
-import { In, Not, Repository } from 'typeorm';
+import { TransactionStatus } from '@src/types/entities';
+import { In, Not, Repository, UpdateResult } from 'typeorm';
 import { Transaction } from '../entities';
 
 @Injectable()
@@ -12,6 +13,10 @@ export class TransactionRepository {
 
   public async insert(data: CreateTransactionDTO): Promise<Transaction> {
     return this.transaction.save(this.transaction.create(data));
+  }
+
+  public async updateStatus(id: string, status: TransactionStatus): Promise<UpdateResult> {
+    return this.transaction.update({ id }, { status });
   }
 
   /**
@@ -113,7 +118,7 @@ export class TransactionRepository {
     return this.transaction.find({
       where: {
         consumerId,
-        status: Not(In(['delivered', 'canceled-by-producer', 'canceled-by-consumer']))
+        status: Not(In(['delivered', 'canceled-by-producer', 'canceled-by-consumer', '']))
       },
 
       select: {
@@ -158,6 +163,49 @@ export class TransactionRepository {
         producerId,
         status: Not(In(['delivered', 'canceled-by-producer', 'canceled-by-consumer']))
       },
+
+      select: {
+        id: true,
+        total: true,
+        productQuantity: true,
+        type: true,
+        status: true,
+        number: true,
+        createdAt: true,
+        payment: {
+          id: true,
+          name: true
+        },
+        market: {
+          id: true,
+          name: true
+        },
+        consumer: {
+          id: true,
+          name: true
+        },
+        selectedDay: {
+          id: true,
+          weekday: true
+        }
+      },
+
+      relations: {
+        market: true,
+        payment: true,
+        consumer: true,
+        selectedDay: true
+      },
+
+      order: {
+        updatedAt: 'DESC'
+      }
+    });
+  }
+
+  public async findProducerTransactionPending(producerId: string): Promise<Transaction[]> {
+    return this.transaction.find({
+      where: { producerId, status: 'waiting-for-confirmation-from-the-producer' },
 
       select: {
         id: true,

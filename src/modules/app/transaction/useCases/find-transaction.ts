@@ -21,7 +21,13 @@ export class FindTransactionUseCase {
     if (current.userType === 'consumer')
       return this.repository.findConsumerTransactionInProgress(current.id);
 
-    return this.repository.findProducerTransactionInProgress(current.id);
+    return this.repository.findProducerTransactionPending(current.id);
+  }
+
+  public findPending(current: CurrentUser): Promise<Transaction[]> {
+    if (current.userType === 'consumer') return Promise.resolve([]);
+
+    return this.repository.findProducerTransactionPending(current.id);
   }
 
   public findById(id: string, _: CurrentUser): FindResponse<Transaction> {
