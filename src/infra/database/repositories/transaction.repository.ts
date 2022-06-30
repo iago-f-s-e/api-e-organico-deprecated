@@ -203,9 +203,12 @@ export class TransactionRepository {
     });
   }
 
-  public async findProducerTransactionPending(producerId: string): Promise<Transaction[]> {
+  public async findProducerTransactionByStatus(
+    producerId: string,
+    status: TransactionStatus
+  ): Promise<Transaction[]> {
     return this.transaction.find({
-      where: { producerId, status: 'waiting-for-confirmation-from-the-producer' },
+      where: { producerId, status },
 
       select: {
         id: true,

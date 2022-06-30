@@ -21,13 +21,22 @@ export class FindTransactionUseCase {
     if (current.userType === 'consumer')
       return this.repository.findConsumerTransactionInProgress(current.id);
 
-    return this.repository.findProducerTransactionPending(current.id);
+    return this.repository.findProducerTransactionInProgress(current.id);
   }
 
   public findPending(current: CurrentUser): Promise<Transaction[]> {
     if (current.userType === 'consumer') return Promise.resolve([]);
 
-    return this.repository.findProducerTransactionPending(current.id);
+    return this.repository.findProducerTransactionByStatus(
+      current.id,
+      'waiting-for-confirmation-from-the-producer'
+    );
+  }
+
+  public findInSeparation(current: CurrentUser): Promise<Transaction[]> {
+    if (current.userType === 'consumer') return Promise.resolve([]);
+
+    return this.repository.findProducerTransactionByStatus(current.id, 'in-separation');
   }
 
   public findById(id: string, _: CurrentUser): FindResponse<Transaction> {

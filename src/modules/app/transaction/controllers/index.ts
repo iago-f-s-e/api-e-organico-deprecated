@@ -42,13 +42,19 @@ export class TransactionController {
     );
   }
 
+  @Get('in-separation')
+  public async getInSeparation(@Current() current: CurrentUser): GetTransaction {
+    return (await this.findUseCase.findInSeparation(current)).map(transaction =>
+      minimalTransactionToClient(transaction, current)
+    );
+  }
+
   @Get('pending')
   public async getPending(@Current() current: CurrentUser): GetTransaction {
     return (await this.findUseCase.findPending(current)).map(transaction =>
       minimalTransactionToClient(transaction, current)
     );
   }
-
   @Get(':id')
   public async getById(
     @Param('id', new ParseUUIDPipe({ version: '4' })) id: string,
@@ -77,5 +83,11 @@ export class TransactionController {
     @Current() current: CurrentUser
   ): void {
     return this.updateUseCase.cancel(id, current);
+  }
+
+  @Patch(':id/separate')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  public separate(@Param('id', new ParseUUIDPipe({ version: '4' })) id: string): void {
+    return this.updateUseCase.separate(id);
   }
 }

@@ -7,7 +7,7 @@ export class UpdateTransactionUseCase {
   constructor(private readonly repository: TransactionRepository) {}
 
   private confirmTransactionByProducer(id: string): void {
-    this.repository.updateStatus(id, 'separating-order').catch(err => console.error(err));
+    this.repository.updateStatus(id, 'in-separation').catch(err => console.error(err));
   }
 
   private cancelTransactionByProducer(id: string): void {
@@ -20,5 +20,11 @@ export class UpdateTransactionUseCase {
 
   public cancel(id: string, _: CurrentUser): void {
     return this.cancelTransactionByProducer(id);
+  }
+
+  public separate(id: string): void {
+    this.repository
+      .updateStatus(id, 'waiting-for-consumer-to-withdraw')
+      .catch(err => console.error(err));
   }
 }

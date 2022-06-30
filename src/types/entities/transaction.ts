@@ -10,7 +10,7 @@ export type TransactionStatus =
   | 'waiting-for-payment'
   | 'waiting-for-consumer-to-withdraw'
   | 'waiting-for-confirmation-from-the-producer'
-  | 'separating-order';
+  | 'in-separation';
 
 export enum transactionType {
   'pick' = 'pick',
