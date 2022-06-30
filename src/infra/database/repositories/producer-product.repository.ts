@@ -14,6 +14,28 @@ export class ProducerProductRepository {
     return this.producerProduct.save(this.producerProduct.create(data));
   }
 
+  public findByProducerId(producerId: string): Promise<ProducerProduct[]> {
+    return this.producerProduct.find({
+      where: { producerId, isActive: true },
+      select: {
+        id: true,
+        price: true,
+        stock: true,
+        score: {
+          transactions: true
+        },
+        product: {
+          name: true
+        }
+      },
+      relations: {
+        product: true,
+        score: true,
+        unitMeasure: true
+      }
+    });
+  }
+
   public findById(id: string): Promise<ProducerProduct[]> {
     return this.producerProduct.find({
       where: {

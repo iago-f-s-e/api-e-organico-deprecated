@@ -80,6 +80,7 @@ export class ProducerRepository {
         producerProducts: {
           id: true,
           price: true,
+          stock: true,
           product: {
             name: true
           },

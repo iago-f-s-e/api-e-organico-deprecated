@@ -5,6 +5,7 @@ export type MinimalProducerProductToClient = {
   image: string;
   name: string;
   price: number;
+  stock: number;
   unitMeasure: {
     name: string;
   };

@@ -15,4 +15,8 @@ export class FindProducerProductUseCase {
 
     return right(product);
   }
+
+  public findByProducerId(id: string): Promise<ProducerProduct[]> {
+    return this.repository.findByProducerId(id);
+  }
 }

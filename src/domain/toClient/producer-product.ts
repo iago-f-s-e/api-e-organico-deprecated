@@ -13,6 +13,7 @@ export const minimalProducerProductToClient: MinimalToClient = producerProduct =
   image: defaultImage,
   name: producerProduct.product.name,
   price: producerProduct.price,
+  stock: producerProduct.stock,
   unitMeasure: {
     name: producerProduct.unitMeasure.name
   }

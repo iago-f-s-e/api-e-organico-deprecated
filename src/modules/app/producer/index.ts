@@ -4,7 +4,6 @@ import { EntryPoints } from '@src/domain/constants';
 import { InfraModule } from '@src/infra';
 import { AuthUser } from '@src/modules/auth/middlewares';
 import { CommonModule } from '@src/modules/common';
-import { ProducerProductModule } from '../producer-product';
 
 import * as Controllers from './controllers';
 import * as UseCases from './useCases';
@@ -13,7 +12,7 @@ const controllers = Object.values(Controllers);
 const useCases = Object.values(UseCases);
 
 @Module({
-  imports: [InfraModule, CommonModule, ProducerProductModule],
+  imports: [InfraModule, CommonModule],
   controllers: controllers,
   providers: useCases
 })
