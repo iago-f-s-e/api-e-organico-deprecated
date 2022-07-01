@@ -4,8 +4,8 @@ export type MinimalProducerProductToClient = {
   id: string;
   image: string;
   name: string;
-  price: number;
-  stock: number;
+  price: string;
+  stock: string;
   unitMeasure: {
     name: string;
   };
@@ -13,7 +13,6 @@ export type MinimalProducerProductToClient = {
 
 export type ProducerProductToClient = MinimalProducerProductToClient & {
   unitMeasure: UnitMeasureToClient;
-  stock: number;
   harvestDate: string;
   score: {
     transactions: number;

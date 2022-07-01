@@ -1,7 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CreateProducerProductDTO } from '@src/domain/dtos/producer-product';
-import { Repository } from 'typeorm';
+import {
+  CreateProducerProductDTO,
+  UpdateProducerProductDTO
+} from '@src/domain/dtos/producer-product';
+import { Repository, UpdateResult } from 'typeorm';
 import { ProducerProduct } from '../entities';
 
 @Injectable()
@@ -12,6 +15,14 @@ export class ProducerProductRepository {
 
   public insert(data: CreateProducerProductDTO): Promise<ProducerProduct> {
     return this.producerProduct.save(this.producerProduct.create(data));
+  }
+
+  public update(id: string, data: UpdateProducerProductDTO): Promise<UpdateResult> {
+    return this.producerProduct.update({ id }, data);
+  }
+
+  public inactive(id: string): Promise<UpdateResult> {
+    return this.producerProduct.update({ id }, { isActive: false });
   }
 
   public findByProducerId(producerId: string): Promise<ProducerProduct[]> {

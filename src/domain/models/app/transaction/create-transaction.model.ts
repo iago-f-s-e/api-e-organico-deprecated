@@ -69,8 +69,6 @@ export class CreateTransactionModel {
   private assert(...toBeAssert: ToBeAssert): asserts this is this & Assert {
     for (const errorInstance of toBeAssert) {
       if (errorInstance.isLeft()) {
-        console.log(errorInstance.value);
-
         throw errorInstance.value;
       }
     }
