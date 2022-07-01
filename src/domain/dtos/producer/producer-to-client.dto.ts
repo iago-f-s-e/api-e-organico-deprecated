@@ -17,7 +17,14 @@ export type MinimalProducerToClient = {
   };
 };
 
-export type ProducerToClient = MinimalProducerToClient & {
+export type ProducerWithAddressAndPropertyToClient = MinimalProducerToClient & {
+  address: AddressToClient;
+  property: {
+    images: PropertyImageToClient[];
+  };
+};
+
+export type ProducerToClient = ProducerWithAddressAndPropertyToClient & {
   address: AddressToClient;
   markets: MinimalMarketToClient[];
   products: MinimalProducerProductToClient[];

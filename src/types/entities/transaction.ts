@@ -5,7 +5,7 @@ export type TransactionStatus =
   | 'canceled-by-consumer'
   | 'confirmed-by-producer'
   | 'confirmed-by-consumer'
-  | 'delivered'
+  | 'concluded'
   | 'en-route'
   | 'in-separation'
   | 'waiting-for-payment'

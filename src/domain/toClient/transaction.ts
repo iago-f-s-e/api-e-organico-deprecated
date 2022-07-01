@@ -1,26 +1,30 @@
 import { Transaction } from '@src/infra/database/entities';
 import { CurrentUser } from '@src/types/global';
-import {
-  MinimalConsumerTransactionToClient,
-  MinimalProducerTransactionToClient,
-  MutualTransactionToClient,
-  ProducerTransactionToClient
-} from '../dtos/transaction';
+import * as dtos from '../dtos/transaction';
 import { paymentToClient } from './payment';
+import { producerWithAddressAndPropertyToClient } from './producer';
 import { transactionProductToClient } from './transaction-product';
 import { userToClient } from './user';
 
-type MutualToClient = (transaction: Transaction) => MutualTransactionToClient;
-type MinimalConsumerToClient = (transaction: Transaction) => MinimalConsumerTransactionToClient;
-type MinimalProducerToClient = (transaction: Transaction) => MinimalProducerTransactionToClient;
-type ProducerToClient = (transaction: Transaction) => ProducerTransactionToClient;
+type MutualToClient = (transaction: Transaction) => dtos.MutualTransactionToClient;
+type MinimalConsumerToClient = (
+  transaction: Transaction
+) => dtos.MinimalConsumerTransactionToClient;
+type MinimalProducerToClient = (
+  transaction: Transaction
+) => dtos.MinimalProducerTransactionToClient;
+type ProducerToClient = (transaction: Transaction) => dtos.ProducerTransactionToClient;
+type ConsumerToClient = (transaction: Transaction) => dtos.ConsumerTransactionToClient;
 
 type MinimalToClient = (
   transaction: Transaction,
   current: CurrentUser
-) => MinimalConsumerTransactionToClient | MinimalProducerTransactionToClient;
+) => dtos.MinimalConsumerTransactionToClient | dtos.MinimalProducerTransactionToClient;
 
-type ToClient = (transaction: Transaction, current: CurrentUser) => ProducerTransactionToClient;
+type ToClient = (
+  transaction: Transaction,
+  current: CurrentUser
+) => dtos.ProducerTransactionToClient | dtos.ConsumerTransactionToClient;
 
 export const minimalTransactionToClient: MinimalToClient = (transaction, current) => {
   if (current.userType === 'consumer') return minimalConsumerTransactionToClient(transaction);
@@ -28,7 +32,9 @@ export const minimalTransactionToClient: MinimalToClient = (transaction, current
   return minimalProducerTransactionToClient(transaction);
 };
 
-export const transactionToClient: ToClient = (transaction, _) => {
+export const transactionToClient: ToClient = (transaction, current) => {
+  if (current.userType === 'consumer') return consumerTransactionToClient(transaction);
+
   return producerTransactionToClient(transaction);
 };
 
@@ -38,6 +44,7 @@ const mutualToClient: MutualToClient = transaction => ({
   productQuantity: transaction.productQuantity,
   status: transaction.status,
   type: transaction.type,
+  number: transaction.number,
   market: {
     id: transaction.market.id,
     name: transaction.market.name
@@ -58,7 +65,6 @@ const minimalConsumerTransactionToClient: MinimalConsumerToClient = transaction 
 
 const minimalProducerTransactionToClient: MinimalProducerToClient = transaction => ({
   ...mutualToClient(transaction),
-  number: transaction.number,
   createdAt: transaction.createdAt,
   selectedDay: {
     id: transaction.selectedDay.id,
@@ -73,6 +79,19 @@ const minimalProducerTransactionToClient: MinimalProducerToClient = transaction 
 const producerTransactionToClient: ProducerToClient = transaction => ({
   ...minimalProducerTransactionToClient(transaction),
   consumer: userToClient(transaction.consumer),
+  payment: paymentToClient(transaction.payment),
+  products: transaction.transactionProducts.map(transactionProduct =>
+    transactionProductToClient(transactionProduct)
+  )
+});
+
+const consumerTransactionToClient: ConsumerToClient = transaction => ({
+  ...minimalConsumerTransactionToClient(transaction),
+  selectedDay: {
+    id: transaction.selectedDay.id,
+    weekday: transaction.selectedDay.weekday
+  },
+  producer: producerWithAddressAndPropertyToClient(transaction.producer),
   payment: paymentToClient(transaction.payment),
   products: transaction.transactionProducts.map(transactionProduct =>
     transactionProductToClient(transactionProduct)

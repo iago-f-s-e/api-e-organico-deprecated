@@ -17,6 +17,14 @@ export class FindTransactionUseCase {
     return right(transaction);
   }
 
+  private async consumerTransactionById(id: string): FindResponse<Transaction> {
+    const [transaction] = await this.repository.findConsumerTransactionById(id);
+
+    if (!transaction) return left(new NotFoundException('Transaction not found'));
+
+    return right(transaction);
+  }
+
   public findInProgress(current: CurrentUser): Promise<Transaction[]> {
     if (current.userType === 'consumer')
       return this.repository.findConsumerTransactionInProgress(current.id);
@@ -44,7 +52,10 @@ export class FindTransactionUseCase {
 
     return this.repository.findProducerTransactionByStatus(current.id, 'in-separation');
   }
-  public findById(id: string, _: CurrentUser): FindResponse<Transaction> {
+
+  public findById(id: string, current: CurrentUser): FindResponse<Transaction> {
+    if (current.userType === 'consumer') return this.consumerTransactionById(id);
+
     return this.producerTransactionById(id);
   }
 }

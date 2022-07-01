@@ -10,19 +10,27 @@ export class UpdateTransactionUseCase {
     this.repository.updateStatus(id, 'in-separation').catch(err => console.error(err));
   }
 
+  private confirmTransactionByConsumer(id: string): void {
+    this.repository.updateStatus(id, 'concluded').catch(err => console.error(err));
+  }
+
+  private cancelTransactionByConsumer(id: string): void {
+    this.repository.updateStatus(id, 'canceled-by-consumer').catch(err => console.error(err));
+  }
+
   private cancelTransactionByProducer(id: string): void {
     this.repository.updateStatus(id, 'canceled-by-producer').catch(err => console.error(err));
   }
 
-  private deliverTransactionByProducer(id: string): void {
-    this.repository.updateStatus(id, 'confirmed-by-producer').catch(err => console.error(err));
-  }
+  public confirm(id: string, current: CurrentUser): void {
+    if (current.userType === 'consumer') return this.confirmTransactionByConsumer(id);
 
-  public confirm(id: string, _: CurrentUser): void {
     return this.confirmTransactionByProducer(id);
   }
 
-  public cancel(id: string, _: CurrentUser): void {
+  public cancel(id: string, current: CurrentUser): void {
+    if (current.userType === 'consumer') return this.cancelTransactionByConsumer(id);
+
     return this.cancelTransactionByProducer(id);
   }
 
@@ -32,7 +40,7 @@ export class UpdateTransactionUseCase {
       .catch(err => console.error(err));
   }
 
-  public deliver(id: string, _: CurrentUser): void {
-    return this.deliverTransactionByProducer(id);
+  public deliver(id: string): void {
+    this.repository.updateStatus(id, 'confirmed-by-producer').catch(err => console.error(err));
   }
 }

@@ -114,11 +114,99 @@ export class TransactionRepository {
     });
   }
 
+  public async findConsumerTransactionById(id: string): Promise<Transaction[]> {
+    return this.transaction.find({
+      where: { id },
+
+      select: {
+        id: true,
+        total: true,
+        productQuantity: true,
+        type: true,
+        status: true,
+        number: true,
+        createdAt: true,
+        payment: {
+          id: true,
+          name: true,
+          type: true
+        },
+        market: {
+          id: true,
+          name: true
+        },
+        selectedDay: {
+          id: true,
+          weekday: true
+        },
+        producer: {
+          id: true,
+          user: {
+            name: true,
+            score: {
+              rating: true,
+              transactions: true
+            },
+            address: {
+              id: true,
+              city: true,
+              complement: true,
+              district: true,
+              number: true,
+              state: true,
+              street: true,
+              zipCode: true
+            }
+          }
+        },
+        transactionProducts: {
+          id: true,
+          quantity: true,
+          total: true,
+          producerProduct: {
+            id: true,
+            price: true,
+            stock: true,
+            harvestDate: true,
+            product: {
+              name: true
+            },
+            unitMeasure: {
+              name: true
+            },
+            score: {
+              transactions: true
+            }
+          }
+        }
+      },
+
+      relations: {
+        transactionProducts: {
+          producerProduct: {
+            product: true,
+            unitMeasure: true,
+            score: true
+          }
+        },
+        market: true,
+        payment: true,
+        producer: {
+          user: {
+            address: true,
+            score: true
+          }
+        },
+        selectedDay: true
+      }
+    });
+  }
+
   public async findConsumerTransactionInProgress(consumerId: string): Promise<Transaction[]> {
     return this.transaction.find({
       where: {
         consumerId,
-        status: Not(In(['delivered', 'canceled-by-producer', 'canceled-by-consumer', '']))
+        status: Not(In(['concluded', 'canceled-by-producer', 'canceled-by-consumer', '']))
       },
 
       select: {
@@ -127,6 +215,7 @@ export class TransactionRepository {
         productQuantity: true,
         type: true,
         status: true,
+        number: true,
         payment: {
           id: true,
           name: true

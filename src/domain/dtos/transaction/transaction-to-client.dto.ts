@@ -1,5 +1,6 @@
 import { TransactionStatus, TransactionType, Weekday } from '@src/types/entities';
 import { PaymentToClient } from '../payment';
+import { ProducerWithAddressAndPropertyToClient } from '../producer';
 import { TransactionProductToClient } from '../transaction-product';
 import { UserToClient } from '../user';
 
@@ -9,6 +10,7 @@ export type MutualTransactionToClient = {
   productQuantity: number;
   status: TransactionStatus;
   type: TransactionType;
+  number: number;
   market: {
     id: string;
     name: string;
@@ -27,7 +29,6 @@ export type MinimalConsumerTransactionToClient = MutualTransactionToClient & {
 };
 
 export type MinimalProducerTransactionToClient = MutualTransactionToClient & {
-  number: number;
   createdAt: Date;
   selectedDay: {
     id: string;
@@ -43,4 +44,14 @@ export type ProducerTransactionToClient = MinimalProducerTransactionToClient & {
   consumer: UserToClient;
   products: TransactionProductToClient[];
   payment: PaymentToClient;
+};
+
+export type ConsumerTransactionToClient = MinimalConsumerTransactionToClient & {
+  producer: ProducerWithAddressAndPropertyToClient;
+  products: TransactionProductToClient[];
+  payment: PaymentToClient;
+  selectedDay: {
+    id: string;
+    weekday: Weekday;
+  };
 };

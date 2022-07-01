@@ -101,10 +101,7 @@ export class TransactionController {
 
   @Patch(':id/deliver')
   @HttpCode(HttpStatus.NO_CONTENT)
-  public deliver(
-    @Param('id', new ParseUUIDPipe({ version: '4' })) id: string,
-    @Current() current: CurrentUser
-  ): void {
-    return this.updateUseCase.deliver(id, current);
+  public deliver(@Param('id', new ParseUUIDPipe({ version: '4' })) id: string): void {
+    return this.updateUseCase.deliver(id);
   }
 }

@@ -1,4 +1,5 @@
 import {
+  ConsumerTransactionToClient,
   MinimalConsumerTransactionToClient,
   MinimalProducerTransactionToClient,
   ProducerTransactionToClient
@@ -7,4 +8,5 @@ import {
 export type GetTransaction = Promise<
   | Array<MinimalConsumerTransactionToClient | MinimalProducerTransactionToClient>
   | ProducerTransactionToClient
+  | ConsumerTransactionToClient
 >;
