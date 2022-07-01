@@ -10,6 +10,7 @@ export const dataSourceOptions: DataSourceOptions = {
   username: Settings.DB_USER,
   password: Settings.DB_PASS,
   logging: Settings.DB_LOGGING,
+  ssl: Settings.DB_SSL,
   entities: [Settings.DB_PATH_ENTITIES],
   migrations: [Settings.DB_PATH_MIGRATIONS]
 };

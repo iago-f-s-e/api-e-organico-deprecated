@@ -1,5 +1,6 @@
 import { LoggerOptions } from 'typeorm';
 import { resolve } from 'path';
+import { IS_PRODUCTION } from './server';
 
 const dir = resolve(__dirname, '..', '..');
 
@@ -25,5 +26,4 @@ export const DB_PATH_SAVE_SEEDS = `${dir}/infra/database/seeds`;
 
 export const DB_LOGGING: LoggerOptions = ['error', 'warn', 'query'];
 
-export const TRANSFORMER_KEY_SECURITY = process.env.TRANSFORMER_KEY_SECURITY || 'secret';
-export const TRANSFORMER_KEY_IV = process.env.TRANSFORMER_KEY_IV || 'secret';
+export const DB_SSL = IS_PRODUCTION ? { rejectUnauthorized: false } : undefined;
