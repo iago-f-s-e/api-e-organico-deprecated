@@ -345,6 +345,94 @@ export class TransactionRepository {
     });
   }
 
+  public async findConsumerTransactionConcluded(consumerId: string): Promise<Transaction[]> {
+    return this.transaction.find({
+      where: {
+        consumerId,
+        status: In(['concluded', 'canceled-by-producer', 'canceled-by-consumer'])
+      },
+
+      select: {
+        id: true,
+        total: true,
+        productQuantity: true,
+        type: true,
+        status: true,
+        number: true,
+        payment: {
+          id: true,
+          name: true
+        },
+        market: {
+          id: true,
+          name: true
+        },
+        producer: {
+          id: true,
+          user: {
+            name: true
+          }
+        }
+      },
+
+      relations: {
+        market: true,
+        payment: true,
+        producer: {
+          user: true
+        }
+      },
+
+      order: {
+        updatedAt: 'DESC'
+      }
+    });
+  }
+
+  public async findConsumerTransactionByStatus(
+    consumerId: string,
+    status: TransactionStatus
+  ): Promise<Transaction[]> {
+    return this.transaction.find({
+      where: { consumerId, status },
+
+      select: {
+        id: true,
+        total: true,
+        productQuantity: true,
+        type: true,
+        status: true,
+        number: true,
+        payment: {
+          id: true,
+          name: true
+        },
+        market: {
+          id: true,
+          name: true
+        },
+        producer: {
+          id: true,
+          user: {
+            name: true
+          }
+        }
+      },
+
+      relations: {
+        market: true,
+        payment: true,
+        producer: {
+          user: true
+        }
+      },
+
+      order: {
+        updatedAt: 'DESC'
+      }
+    });
+  }
+
   public async findProducerTransactionByStatus(
     producerId: string,
     status: TransactionStatus

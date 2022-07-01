@@ -33,7 +33,8 @@ export class FindTransactionUseCase {
   }
 
   public findConcluded(current: CurrentUser): Promise<Transaction[]> {
-    if (current.userType === 'consumer') return Promise.resolve([]);
+    if (current.userType === 'consumer')
+      return this.repository.findConsumerTransactionConcluded(current.id);
 
     return this.repository.findProducerTransactionConcluded(current.id);
   }
