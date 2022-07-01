@@ -1,6 +1,6 @@
 import { Controller, Get, Param, ParseUUIDPipe } from '@nestjs/common';
 import { keys } from '@src/domain/constants';
-import { GetProducer, MinimalProducerToClient } from '@src/domain/dtos/producer';
+import { GetProducer } from '@src/domain/dtos/producer';
 import { minimalProducerToClient, producerToClient } from '@src/domain/toClient';
 import { RedisService } from '@src/infra/redis/services';
 import { FindProducerUseCase } from '../useCases';
@@ -23,9 +23,9 @@ export class ProducerController {
 
   @Get()
   public async findAllProducers(): GetProducer {
-    const cache = await this.redisService.get<MinimalProducerToClient[]>(keys.ALL_PRODUCERS);
+    // const cache = await this.redisService.get<MinimalProducerToClient[]>(keys.ALL_PRODUCERS);
 
-    if (cache) return cache;
+    // if (cache) return cache;
 
     const producers = (await this.findUseCase.exec()).map(producer =>
       minimalProducerToClient(producer)

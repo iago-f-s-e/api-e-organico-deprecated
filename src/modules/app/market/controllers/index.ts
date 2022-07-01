@@ -1,6 +1,6 @@
 import { Controller, Get, Param, ParseUUIDPipe } from '@nestjs/common';
 import { keys } from '@src/domain/constants';
-import { GetMarket, MinimalMarketToClient } from '@src/domain/dtos/market';
+import { GetMarket } from '@src/domain/dtos/market';
 import { marketToClient, minimalMarketToClient } from '@src/domain/toClient';
 import { RedisService } from '@src/infra/redis/services';
 import { FindMarketUseCase } from '../useCases';
@@ -23,9 +23,9 @@ export class MarketController {
 
   @Get()
   public async getAll(): GetMarket {
-    const cache = await this.redisService.get<MinimalMarketToClient[]>(keys.ALL_MARKETS);
+    // const cache = await this.redisService.get<MinimalMarketToClient[]>(keys.ALL_MARKETS);
 
-    if (cache) return cache;
+    // if (cache) return cache;
 
     const markets = (await this.findUseCase.exec()).map(market => minimalMarketToClient(market));
 
