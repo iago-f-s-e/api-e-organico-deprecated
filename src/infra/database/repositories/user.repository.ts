@@ -32,7 +32,8 @@ export class UserRepository {
           zipCode: true
         },
         producer: {
-          makeDelivery: true
+          makeDelivery: true,
+          status: true
         }
       },
       relations: {
