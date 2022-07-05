@@ -19,10 +19,10 @@ export class SignInService {
 
     if (userOrError.isLeft()) return left(new UnauthorizedException());
 
-    const isNotProducer = !userOrError.value.producer;
-    const isNotActive = userOrError.value.producer?.status !== 'ACTIVE';
+    // const isNotProducer = !userOrError.value.producer;
+    // const isNotActive = userOrError.value.producer?.status !== 'ACTIVE';
 
-    if (isNotProducer && isNotActive) return left(new UnauthorizedException());
+    // if (isNotProducer && isNotActive) return left(new UnauthorizedException());
 
     const isMatch = await this.passService.isMatch(data.password, userOrError.value.password);
 
